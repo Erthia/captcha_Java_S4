@@ -1,8 +1,8 @@
 package fr.upem.capcha.images.panneaux.ronds;
 
-import fr.upem.capcha.images.Category;
+import fr.upem.capcha.images.panneaux.Panneau;
 
-public class Rond extends Category {
+public class Rond extends Panneau {
 	public Rond() {
 		super();
 	}
