@@ -1,8 +1,9 @@
 package fr.upem.capcha.images.villes;
 
-import fr.upem.capcha.images.Images;
+import fr.upem.capcha.images.Category;
 
-public class Ville implements Images {
-
-	
+public class Ville extends Category {
+	public Ville() {
+		super();
+	}
 }
