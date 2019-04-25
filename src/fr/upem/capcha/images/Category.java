@@ -9,9 +9,12 @@ public abstract class Category implements Images {
 	//Constructeur 
 
 	//Getter & Setter
-	public List<Image> getList() {
+	@Override
+	public List<Image> getPhotos() {
+		// TODO Auto-generated method stub
 		return list;
 	}
+
 	public void setList(List<Image> list) {
 		this.list = list;
 	}
@@ -24,13 +27,7 @@ public abstract class Category implements Images {
 	
 	//Méthodes à implémenter
 	@Override
-	public List<Image> getPhotos() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Image> getRandomPhotos() {
+	public List<Image> getRandomPhotos(int nbPhotos) {
 		// TODO Auto-generated method stub
 		return null;
 	}
