@@ -1,6 +1,7 @@
 package fr.upem.capcha.images;
 
 import java.util.List;
+import java.util.Random;
 
 public abstract class Category implements Images {
 	private List<Image> list;
@@ -11,8 +12,7 @@ public abstract class Category implements Images {
 	//Getter & Setter
 	@Override
 	public List<Image> getPhotos() {
-		// TODO Auto-generated method stub
-		return list;
+		return List.copyOf(list);
 	}
 
 	public void setList(List<Image> list) {
@@ -27,14 +27,16 @@ public abstract class Category implements Images {
 	
 	//Méthodes à implémenter
 	@Override
-	public List<Image> getRandomPhotos(int nbPhotos) {
+	public List<Image> getRandomPhotos(int nbImage) {
 		// TODO Auto-generated method stub
+		// 1) select nbImage random number in range size of list - EN COURS
+		long seed = System.currentTimeMillis();
+		// 2) return a new list composed with the corresponding Images
 		return null;
 	}
 
 	@Override
 	public Image getRandomPhoto() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
