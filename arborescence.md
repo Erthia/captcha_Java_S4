@@ -9,10 +9,8 @@ véhicules (motorisés ou non)
     blanche
     noire
   vélo
-    sans cycliste
-    avec cycliste
   transport en commun
     tramway
     bus
     train
-autres
+ponts

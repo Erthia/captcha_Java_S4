@@ -1,20 +1,28 @@
 package fr.upem.capcha.images;
 
+import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
-public abstract class Category implements Images {
+public class Category implements Images {
 	private ArrayList<Image> list;
-	private String categoryUrl;
+	String categoryUrl;
 	
 	//Constructeur 
-
-	//Getter & Setter
+	public Category() {
+		super();
+		list = new ArrayList<Image>();
+		String path = Images.class.getResource("Images.class").getPath();
+		File dir = new File(path);
+		this.categoryUrl = dir.getParent() + this.getClass().getPackageName().replace(".", "/") + ".java";
+	}// Quelque chose du genre... je sais pas trop faut testé.
+	
+	//Getter & Setter	
+	
 	// not tested
 	@Override
 	public ArrayList<Image> getPhotos() {
-		return (ArrayList) List.copyOf(list);
+		return list;
 	}
 
 	public void setList(ArrayList<Image> list) {
