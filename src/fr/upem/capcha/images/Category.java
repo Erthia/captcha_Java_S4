@@ -11,6 +11,7 @@ public abstract class Category implements Images {
 	//Constructeur 
 
 	//Getter & Setter
+	// not tested
 	@Override
 	public ArrayList<Image> getPhotos() {
 		return (ArrayList) List.copyOf(list);
@@ -26,11 +27,16 @@ public abstract class Category implements Images {
 		this.categoryUrl = categoryUrl;
 	}
 	
-	//Méthodes à implémenter
+	// not tested
 	@Override
-	public ArrayList<Image> getRandomPhotos(int nbImage) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Image> getRandomPhotos(int nbImages){
+		ArrayList<Image> result = new ArrayList<>();
+		for(int cpt=0; cpt<nbImages; cpt ++){
+			Image randomPhoto = getRandomPhoto();
+			if(!this.list.contains(randomPhoto))
+				result.add(randomPhoto);
+		}
+		return result;
 	}
 
 	// not tested
