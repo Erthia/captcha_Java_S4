@@ -1,10 +1,10 @@
 package fr.upem.capcha.images;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public interface Images{
-	public List<Image> getPhotos();
-	public List<Image> getRandomPhotos();
+	public ArrayList<Image> getPhotos();
+	public ArrayList<Image> getRandomPhotos(int nbImages);
 	public Image getRandomPhoto();
 	public boolean isPhotoCorrect(Category category);
 }
