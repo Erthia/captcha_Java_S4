@@ -1,4 +1,4 @@
-package fr.upem.capcha.images.signalisation.panneaux;
+package fr.upem.capcha.images.panneaux;
 
 import fr.upem.capcha.images.Category;
 
