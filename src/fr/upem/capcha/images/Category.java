@@ -29,24 +29,33 @@ public class Category implements Images {
 		return namePackage;
 	}
 
-	//Getter & Setter	
+	//Getter & Setter
+	public ArrayList<Image> getList() {
+		return list;
+	}
 	
+	public void setList(ArrayList<Image> list) {
+		this.list = list;
+	}
+	
+	public String getCategoryUrl() {
+		return categoryUrl;
+	}
+	
+	public String getCategory() {
+		String category = this.getClass().getPackageName();
+		category = cleanPath(category);
+		return category;
+	}
+
+	//Interface's Method
 	// not tested
 	@Override
 	public ArrayList<Image> getPhotos() {
 		return list;
 	}
 
-	public void setList(ArrayList<Image> list) {
-		this.list = list;
-	}
-	public String getCategoryUrl() {
-		return categoryUrl;
-	}
-	public void setCategoryUrl(String categoryUrl) {
-		this.categoryUrl = categoryUrl;
-	}
-	
+
 	// not tested
 	@Override
 	public ArrayList<Image> getRandomPhotos(int nbImages){

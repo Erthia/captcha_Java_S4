@@ -6,7 +6,9 @@ public class Main {
 	public static void main(String[] args) {
 		Category test = new Voiture();
 
-	    System.out.println(test.categoryUrl);   
+	    System.out.println(test.categoryUrl);
+	    System.out.println(test.getCategory());   
+
 	}
 }
 
