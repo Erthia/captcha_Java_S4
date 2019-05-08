@@ -2,6 +2,7 @@ package fr.upem.capcha.images;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Random;
 
 public class Category implements Images {
@@ -13,10 +14,21 @@ public class Category implements Images {
 		super();
 		list = new ArrayList<Image>();
 		String path = Images.class.getResource("Images.class").getPath();
-		File dir = new File(path);
-		this.categoryUrl = dir.getParent() + this.getClass().getPackageName().replace(".", "/") + ".java";
-	}// Quelque chose du genre... je sais pas trop faut testé.
+		File fileParent = new File(path);
+		String pathParent = fileParent.getParent(); // /Users/Hedi/Documents/IMAC/IMAC%202/Semestre%204/Java/captcha_Java_S4/bin/fr/upem/capcha/images
+		String namePackage = this.getClass().getPackageName(); // fr.upem.capcha.images.vehicules.voitures
+		namePackage = cleanPath(namePackage); // on modifie le string pour n'afficher que /vehicules/voitures
+		this.categoryUrl = pathParent + namePackage;
+	}
 	
+	private String cleanPath(String namePackage) {
+		Objects.requireNonNull(namePackage, "Le nom du package ne doit pas être nul");
+		namePackage = namePackage.replace(".", "/"); // fr/upem/capcha/images/vehicules/voitures
+		namePackage =  namePackage.substring(namePackage.lastIndexOf("images/"), namePackage.length()); // filtre jusqu'a /images
+		namePackage = namePackage.replace("images/", "/"); // remplace images/ par /
+		return namePackage;
+	}
+
 	//Getter & Setter	
 	
 	// not tested
