@@ -87,22 +87,31 @@ public class Category implements Images {
 	}
 	
 	private void createList(){
-		File currentFolder = new File(this.categoryUrl);
+        createList(new File(this.getCategoryUrl()), "", 0, 5);
+	}
+	
+	private void createList(File currentFolder, String subCategory, int size, int sizeMax){
 		File[] test = currentFolder.listFiles();
+		if (size > sizeMax) {
+            return;
+        }
 		if(test== null){
 			System.out.println("Problem !");
 			return;
 		}
-		for(int i=0; i< test.length; i++)
+		
+		for(int i=0; i< test.length; i++){
 			if(test[i].isDirectory()){
 				// Modify here if we want to represent the file arborescence with a tree
 				// Idea : create the sub-category here, and call its getPhotos , then add the photos in the list of the current Category
-				System.out.println(test[i].getName());
-
+				subCategory = currentFolder.getName();
+				size++;
+				File subFolder = test[i];
+				createList(subFolder, subCategory, size, sizeMax);
 			}
 			else if(test[i].getName().contains(".jpg")){
 				list.add(new Image(test[i].getPath(), currentFolder.getName()));
 			}
+		}
 	}
-	
 }
