@@ -1,10 +1,10 @@
 package fr.upem.capcha.images;
 
-import fr.upem.capcha.images.vehicules.voitures.Voiture;
+import fr.upem.capcha.images.ponts.Pont;
 
 public class Main {
 	public static void main(String[] args) {
-		Category test = new Voiture();
+		Category test = new Pont();
 
 	    System.out.println(test.categoryUrl);
 	    System.out.println(test.getCategory());   

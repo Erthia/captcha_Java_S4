@@ -8,6 +8,7 @@ import java.util.Random;
 public class Category implements Images {
 	private ArrayList<Image> list;
 	String categoryUrl;
+	// maybe add a list of the children catogories, to manage the captcha difficulty
 	
 	//Constructeur 
 	public Category() {
@@ -19,6 +20,7 @@ public class Category implements Images {
 		String namePackage = this.getClass().getPackageName(); // fr.upem.capcha.images.vehicules.voitures
 		namePackage = cleanPath(namePackage); // on modifie le string pour n'afficher que /vehicules/voitures
 		this.categoryUrl = pathParent + namePackage;
+		createList();
 	}
 	
 	private String cleanPath(String namePackage) {
@@ -84,5 +86,23 @@ public class Category implements Images {
 		}
 	}
 	
+	private void createList(){
+		File currentFolder = new File(this.categoryUrl);
+		File[] test = currentFolder.listFiles();
+		if(test== null){
+			System.out.println("Problem !");
+			return;
+		}
+		for(int i=0; i< test.length; i++)
+			if(test[i].isDirectory()){
+				// Modify here if we want to represent the file arborescence with a tree
+				// Idea : create the sub-category here, and call its getPhotos , then add the photos in the list of the current Category
+				System.out.println(test[i].getName());
+
+			}
+			else if(test[i].getName().contains(".jpg")){
+				list.add(new Image(test[i].getPath(), currentFolder.getName()));
+			}
+	}
 	
 }
