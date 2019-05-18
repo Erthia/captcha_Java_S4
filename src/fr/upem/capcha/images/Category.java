@@ -43,20 +43,16 @@ public class Category implements Images {
 	}
 	
 	public String getCategory() {
-		String category = this.getClass().getPackageName();
-		category = cleanPath(category);
+		String category = this.getClass().getSimpleName();
 		return category;
 	}
 
 	//Interface's Method
-	// not tested
 	@Override
 	public ArrayList<Image> getPhotos() {
 		return list;
 	}
 
-
-	// not tested
 	@Override
 	public ArrayList<Image> getRandomPhotos(int nbImages){
 		ArrayList<Image> result = new ArrayList<>();
@@ -68,7 +64,6 @@ public class Category implements Images {
 		return result;
 	}
 
-	// not tested
 	@Override
 	public Image getRandomPhoto() {
 		long seed = System.currentTimeMillis();
@@ -78,8 +73,13 @@ public class Category implements Images {
 
 	@Override
 	public boolean isPhotoCorrect(Category category) {
-		// TODO Auto-generated method stub
-		return false;
+		if (this.categoryUrl.contains(category.getCategory())) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
+	
 	
 }

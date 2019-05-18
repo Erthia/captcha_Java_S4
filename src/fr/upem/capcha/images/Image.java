@@ -21,4 +21,9 @@ public class Image {
 		return url;
 	}
 	
+	@Override
+	public String toString() {
+		return "Image : url=" + url + ", category=" + category + "]";
+	}
+	
 }

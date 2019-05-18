@@ -8,6 +8,7 @@ public class Main {
 
 	    System.out.println(test.categoryUrl);
 	    System.out.println(test.getCategory());   
+	    System.out.println(test.getPhotos());   
 
 	}
 }
