@@ -55,11 +55,14 @@ public class Category implements Images {
 
 	@Override
 	public ArrayList<Image> getRandomPhotos(int nbImages){
+		if (nbImages >= list.size()) return list;
+
 		ArrayList<Image> result = new ArrayList<>();
 		for(int cpt=0; cpt<nbImages; cpt ++){
 			Image randomPhoto = getRandomPhoto();
-			if(!this.list.contains(randomPhoto))
-				result.add(randomPhoto);
+			while(this.list.contains(randomPhoto))
+				randomPhoto = getRandomPhoto();
+			result.add(randomPhoto);
 		}
 		return result;
 	}
