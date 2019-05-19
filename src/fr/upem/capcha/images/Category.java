@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Random;
 
-public class Category implements Images {
+public abstract class Category implements Images {
 	private ArrayList<Image> list;
 	String categoryUrl;
 	// maybe add a list of the children catogories, to manage the captcha difficulty
@@ -16,17 +16,17 @@ public class Category implements Images {
 		list = new ArrayList<Image>();
 		String path = Images.class.getResource("Images.class").getPath();
 		File fileParent = new File(path);
-		String pathParent = fileParent.getParent(); // /Users/Hedi/Documents/IMAC/IMAC%202/Semestre%204/Java/captcha_Java_S4/bin/fr/upem/capcha/images
-		String namePackage = this.getClass().getPackageName(); // fr.upem.capcha.images.vehicules.voitures
-		namePackage = cleanPath(namePackage); // on modifie le string pour n'afficher que /vehicules/voitures
+		String pathParent = fileParent.getParent(); 
+		String namePackage = this.getClass().getPackageName(); 
+		namePackage = cleanPath(namePackage); 
 		this.categoryUrl = pathParent + namePackage;
 		createList();
 	}
 	
 	private String cleanPath(String namePackage) {
 		Objects.requireNonNull(namePackage, "Le nom du package ne doit pas être nul");
-		namePackage = namePackage.replace(".", "/"); // fr/upem/capcha/images/vehicules/voitures
-		namePackage =  namePackage.substring(namePackage.lastIndexOf("images/"), namePackage.length()); // filtre jusqu'a /images
+		namePackage = namePackage.replace(".", "/"); 
+		namePackage = namePackage.substring(namePackage.lastIndexOf("images/"), namePackage.length()); // filtre jusqu'a /images
 		namePackage = namePackage.replace("images/", "/"); // remplace images/ par /
 		return namePackage;
 	}
@@ -57,7 +57,7 @@ public class Category implements Images {
 
 	@Override
 	public ArrayList<Image> getRandomPhotos(int nbImages){
-		if (nbImages >= list.size()) { 
+		if (nbImages > list.size()) { 
 			 throw new IllegalArgumentException("nbImages trop grand");
 		}
 		ArrayList<Image> result = new ArrayList<>();

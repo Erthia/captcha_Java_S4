@@ -2,8 +2,8 @@ package fr.upem.capcha.images.vehicules;
 
 import fr.upem.capcha.images.Category;
 
-public class Vehicule extends Category {
-	public Vehicule() {
+public class Vehicules extends Category {
+	public Vehicules() {
 		super();
 		
 	}

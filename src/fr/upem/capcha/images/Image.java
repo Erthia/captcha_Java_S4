@@ -23,7 +23,7 @@ public class Image {
 	
 	@Override
 	public String toString() {
-		return "Image : url=" + url + ", category=" + category;
+		return "Image : url=" + url + ", category=" + category + "\n";
 	}
 	
 }

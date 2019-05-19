@@ -1,37 +1,35 @@
 package fr.upem.capcha.images;
 
-import fr.upem.capcha.images.vehicules.voitures.Voiture;
-import fr.upem.capcha.images.vehicules.voitures.rouges.Rouge;
+import fr.upem.capcha.images.vehicules.voitures.Voitures;
+import fr.upem.capcha.images.vehicules.voitures.rouges.Rouges;
 
 public class Main {
 	public static void main(String[] args) {
 		// Test Voitures
-	    System.out.println("VOITURES : ");
-		Category testVoiture = new Voiture();
+	    System.out.println("------- VOITURES ------");
+		Category testVoiture = new Voitures();
 
-	    System.out.println(testVoiture.categoryUrl);
-	    System.out.println(testVoiture.getCategory());   
-	    System.out.println(testVoiture.getPhotos());
+	    System.out.println("CategorieUrl : " + testVoiture.getCategoryUrl());
+	    System.out.println("Categorie : " + testVoiture.getCategory());   
+	    System.out.println("Photos : \n" + testVoiture.getPhotos());
 	    
-	    System.out.println("");
-	    System.out.println("VOITURES ROUGES : ");
+	    System.out.println("\n ------ VOITURES ROUGES ------");
 
 		// Test Voitures rouge
-		Category testVoitureRouge = new Rouge();
+		Category testVoitureRouge = new Rouges();
 
-	    System.out.println(testVoitureRouge.categoryUrl);
-	    System.out.println(testVoitureRouge.getCategory());   
-	    System.out.println(testVoitureRouge.getPhotos());
-	    try {
-			System.out.println(testVoitureRouge.getRandomPhotos(1));
-		} catch (IllegalArgumentException ex) {
-			System.out.println(ex.getMessage());;
-		}
+	    System.out.println("CategorieUrl : " + testVoitureRouge.getCategoryUrl());
+	    System.out.println("Categorie : " + testVoitureRouge.getCategory());   
+	    System.out.println("Photos : \n" + testVoitureRouge.getPhotos());
+		System.out.println("Random photos : \n" + testVoitureRouge.getRandomPhotos(2));
+
 	    
 		// Test photos	  
-		System.out.println(testVoitureRouge.getCategoryUrl());	  
-		System.out.println(testVoiture.getCategory());	    
-		System.out.println(testVoitureRouge.isPhotoCorrect(testVoiture));	    
+	    System.out.println("\n ------ TEST ------");
+
+		System.out.println("Categorie enfant : \n" + testVoitureRouge.getCategoryUrl());	  
+		System.out.println("Categorie parent : \n" + testVoiture.getCategory());	    
+		System.out.println("Voiture rouge appartient à Voiture ? : " + testVoitureRouge.isPhotoCorrect(testVoiture));	    
 	}
 }
 
