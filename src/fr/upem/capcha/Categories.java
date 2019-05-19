@@ -15,10 +15,10 @@ public class Categories {
 		String path = Images.class.getResource("Images.class").getPath();
 		File folder = new File(path);
 		path = folder.getParent(); 
-		createCategoryList(new File(path), "fr.upem.captcha.images", 0, 5);
+		createCategoryList(new File(path), "fr.upem.captcha.images", 0, 10);
 	}
 	
-	private void createCategoryList(File currentFolder, String classFolder, int size, int sizeMax){
+	private void createCategoryList(File currentFolder, String categoryName, int size, int sizeMax){
 		if (size > sizeMax) {
             return;
         }
@@ -31,15 +31,13 @@ public class Categories {
 		
 		for(int i=0; i< test.length; i++){
 			if(test[i].isDirectory()){        		
-				String className = currentFolder.getName();
-				
-				//Instancier les category ???
-				
-				//categoryList.add();
-				
-				size++;
 				File subFolder = test[i];
-				createCategoryList(subFolder, className + "." + subFolder.getName(), size, sizeMax);
+				String str = subFolder.getName();
+				String className = str.substring(0, 1).toUpperCase() + str.substring(1);
+				System.out.println(className);
+
+				size++;
+				createCategoryList(subFolder, className, size, sizeMax);
 			}
 		}
 	}
