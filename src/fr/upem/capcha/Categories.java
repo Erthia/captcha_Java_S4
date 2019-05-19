@@ -15,10 +15,10 @@ public class Categories {
 		String path = Images.class.getResource("Images.class").getPath();
 		File folder = new File(path);
 		path = folder.getParent(); 
-		createCategoryList(new File(path), "fr.upem.captcha.images", 0, 10);
+		createCategoryList(new File(path), 0, 10);
 	}
 	
-	private void createCategoryList(File currentFolder, String categoryName, int size, int sizeMax){
+	private void createCategoryList(File currentFolder, int size, int sizeMax){
 		if (size > sizeMax) {
             return;
         }
@@ -42,11 +42,23 @@ public class Categories {
 				
 				String classPath = path + "." + className;
 				System.out.println(classPath);
-				//Il faut instancier les catégories ici 
-				//Class.forName(classPath).newInstance();
+				try{
+					Class<?> classe = Class.forName(classPath);
+					Category instance = (Category) classe.newInstance();
+					categoryList.add(instance);
+				}
+			    catch (ClassNotFoundException e){
+			      System.out.println("La classe n'existe pas");
+			    }
+			    catch (InstantiationException e){
+			      System.out.println(" La classe est abstract ou est une interface ou n'a pas de constructeur accessible sans paramètre");
+			    }
+			    catch (IllegalAccessException e){
+				  System.out.println("La classe n'est pas accessible");
+			    }
 
 				size++;
-				createCategoryList(subFolder, className, size, sizeMax);
+				createCategoryList(subFolder, size, sizeMax);
 			}
 		}
 	}
