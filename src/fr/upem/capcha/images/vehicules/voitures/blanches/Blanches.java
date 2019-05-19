@@ -1,9 +1,9 @@
 package fr.upem.capcha.images.vehicules.voitures.blanches;
 
-import fr.upem.capcha.images.vehicules.voitures.Voiture;
+import fr.upem.capcha.images.vehicules.voitures.Voitures;
 
-public class Blanche extends Voiture {
-	public Blanche() {
+public class Blanches extends Voitures {
+	public Blanches() {
 		super();
 	}
 }

@@ -1,9 +1,9 @@
 package fr.upem.capcha.images.vehicules.voitures.noires;
 
-import fr.upem.capcha.images.vehicules.voitures.Voiture;
+import fr.upem.capcha.images.vehicules.voitures.Voitures;
 
-public class Noire extends Voiture {
-	public Noire() {
+public class Noires extends Voitures {
+	public Noires() {
 		super();
 	}
 }

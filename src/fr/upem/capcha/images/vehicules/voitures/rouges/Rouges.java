@@ -1,9 +1,9 @@
 package fr.upem.capcha.images.vehicules.voitures.rouges;
 
-import fr.upem.capcha.images.vehicules.voitures.Voiture;
+import fr.upem.capcha.images.vehicules.voitures.Voitures;
 
-public class Rouge extends Voiture {
-	public Rouge() {
+public class Rouges extends Voitures {
+	public Rouges() {
 		super();
 	}
 }
