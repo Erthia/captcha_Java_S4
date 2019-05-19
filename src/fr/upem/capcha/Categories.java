@@ -32,9 +32,6 @@ public class Categories {
 		for(int i=0; i< test.length; i++){
 			if(test[i].isDirectory()){        		
 				String className = currentFolder.getName();
-				System.out.println("className : " + className);
-				System.out.println("classFolder : " + classFolder);
-				System.out.println("classFolder + className : " + classFolder + "." + className);
 				
 				//Instancier les category ???
 				

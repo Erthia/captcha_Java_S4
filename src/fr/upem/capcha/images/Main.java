@@ -27,7 +27,7 @@ public class Main {
 		// Test photos	  
 	    System.out.println("\n ------ TEST ------");
 
-		System.out.println("Categorie enfant : \n" + testVoitureRouge.getCategoryUrl());	  
+		System.out.println("Categorie enfant : \n" + testVoitureRouge.getCategory());	  
 		System.out.println("Categorie parent : \n" + testVoiture.getCategory());	    
 		System.out.println("Voiture rouge appartient à Voiture ? : " + testVoitureRouge.isPhotoCorrect(testVoiture));	    
 	}
