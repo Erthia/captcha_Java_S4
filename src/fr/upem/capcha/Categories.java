@@ -36,6 +36,15 @@ public class Categories {
 				String className = str.substring(0, 1).toUpperCase() + str.substring(1);
 				System.out.println(className);
 
+				String path = subFolder.getPath(); 
+				path = cleanPath(path); 
+				System.out.println(path);
+				
+				String classPath = path + "." + className;
+				System.out.println(classPath);
+				//Il faut instancier les catégories ici 
+				//Class.forName(classPath).newInstance();
+
 				size++;
 				createCategoryList(subFolder, className, size, sizeMax);
 			}
@@ -57,5 +66,12 @@ public class Categories {
 		return categoryList; 
 		//Retourne une category random parmi la liste
 	}*/
+	
+	private String cleanPath(String namePackage) {
+		namePackage = namePackage.replace("/","."); 
+		namePackage = namePackage.substring(namePackage.lastIndexOf("fr."), namePackage.length()); // filtre jusqu'a /images
+		return namePackage;
+	}
+
 
 }
