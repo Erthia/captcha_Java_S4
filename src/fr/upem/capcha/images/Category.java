@@ -45,7 +45,7 @@ public class Category implements Images {
 	}
 	
 	public String getCategory() {
-		String category = this.getClass().getSimpleName();
+		String category = this.getClass().getSimpleName().toLowerCase();
 		return category;
 	}
 
@@ -57,14 +57,16 @@ public class Category implements Images {
 
 	@Override
 	public ArrayList<Image> getRandomPhotos(int nbImages){
-		if (nbImages >= list.size()) return list;
-
+		if (nbImages >= list.size()) { 
+			 throw new IllegalArgumentException("nbImages trop grand");
+		}
 		ArrayList<Image> result = new ArrayList<>();
+		ArrayList<Image> tmp = list;
+
 		for(int cpt=0; cpt<nbImages; cpt ++){
-			Image randomPhoto = getRandomPhoto();
-			while(this.list.contains(randomPhoto))
-				randomPhoto = getRandomPhoto();
+			Image randomPhoto = getRandomPhoto(tmp);
 			result.add(randomPhoto);
+			tmp.remove(randomPhoto);
 		}
 		return result;
 	}
@@ -75,10 +77,16 @@ public class Category implements Images {
 		Random RGenerator = new Random(seed);
 		return list.get(RGenerator.nextInt(this.list.size()));
 	}
+	
+	public Image getRandomPhoto(ArrayList<Image> tmpList) {
+		long seed = System.currentTimeMillis();
+		Random RGenerator = new Random(seed);
+		return tmpList.get(RGenerator.nextInt(tmpList.size()));
+	}
 
 	@Override
 	public boolean isPhotoCorrect(Category category) {
-		if (this.categoryUrl.contains(category.getCategory())) {
+		if (getCategoryUrl().contains(category.getCategory())) {
 			return true;
 		}
 		else {
@@ -86,6 +94,7 @@ public class Category implements Images {
 		}
 	}
 	
+	//Methods
 	private void createList(){
         createList(new File(this.getCategoryUrl()), "", 0, 5);
 	}
