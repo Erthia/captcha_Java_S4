@@ -58,7 +58,7 @@ public class MainUi {
 		}
 		//
 
-		frame.add(new JTextArea("Cliquez n'importe où ... juste pour tester l'interface !"));
+		frame.add(new JTextArea("\nRight Category : \n" + controller.getRightCategory().getCategory()));
 		
 		
 		frame.add(okButton);

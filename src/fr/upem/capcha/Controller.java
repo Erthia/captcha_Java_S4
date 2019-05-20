@@ -38,15 +38,12 @@ public class Controller {
 		return imagesList;
 	}
 
-	private ArrayList<Picture> getWrongPhotos(int nb){
-		ArrayList<Picture> result = new ArrayList<>(nb);
-		for(int i=0; i<nb; i++){
-			Category wrongCat = categoryList.getRandomCat();
-			while(wrongCat.getCategoryUrl().contains(this.rightCategory.getCategoryUrl()))
-				wrongCat = categoryList.getRandomCat();
-			result.add(wrongCat.getRandomPhoto());
+	private Category getWrongPhotos(){
+		Category wrongCat = categoryList.getRandomCat();
+		while(wrongCat.getCategoryUrl().contains(this.rightCategory.getCategoryUrl())) {
+			wrongCat = categoryList.getRandomCat();
 		}
-		return result;
+		return wrongCat;
 	}
 
 	public void setImagesList(ArrayList<Picture> imagesList) {
@@ -59,7 +56,7 @@ public class Controller {
 		imagesList.clear();
 		right = rightCategory.getRandomPhotos(4);  
 		imagesList.addAll(right);  
-		imagesList.addAll(getWrongPhotos(5));
+		imagesList.addAll(getWrongPhotos().getRandomPhotos(5));
 		Collections.shuffle(imagesList); 
 		return imagesList;
 	}
