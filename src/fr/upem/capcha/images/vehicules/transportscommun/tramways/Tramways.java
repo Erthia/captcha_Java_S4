@@ -1,8 +1,8 @@
 package fr.upem.capcha.images.vehicules.transportscommun.tramways;
 
-import fr.upem.capcha.images.vehicules.transportscommun.TransportsCommun;
+import fr.upem.capcha.images.vehicules.transportscommun.Transportscommun;
 
-public class Tramways extends TransportsCommun {
+public class Tramways extends Transportscommun {
 	public Tramways() {
 		super();
 	}
