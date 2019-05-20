@@ -119,7 +119,9 @@ public abstract class Category implements Images {
 				createList(subFolder, subCategory, size, sizeMax);
 			}
 			else if(test[i].getName().contains(".jpg")){
-				list.add(new Picture(test[i].getPath(), currentFolder.getName()));
+				String namePackage = this.getClass().getPackageName();
+				namePackage = namePackage.replace(".", "/"); 
+				list.add(new Picture(namePackage + "/" + test[i].getName(), currentFolder.getName()));
 			}
 		}
 	}

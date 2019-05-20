@@ -51,7 +51,9 @@ public class MainUi {
 		System.out.println(toDisplay);
 		Iterator<Picture> it = toDisplay.iterator();
 		while(it.hasNext()){
-			frame.add(createLabelImage(it.next().getUrl()));
+			String relativeUrl = ".." + it.next().getUrl().substring("fr/upem/capcha".length());
+			System.out.println(relativeUrl);
+			frame.add(createLabelImage(relativeUrl));
 		}
 		//
 
@@ -85,11 +87,10 @@ public class MainUi {
 	}
 	
 	private static JLabel createLabelImage(String imageLocation) throws IOException{
-		
+
 		final URL url = MainUi.class.getResource(imageLocation); //Aller chercher les images !! IMPORTANT 
 		
 		System.out.println(url); 
-		
 		BufferedImage img = ImageIO.read(url); //lire l'image
 		Image sImage = img.getScaledInstance(1024/3,768/4, Image.SCALE_SMOOTH); //redimentionner l'image
 		
