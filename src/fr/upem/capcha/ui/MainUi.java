@@ -49,6 +49,7 @@ public class MainUi {
 		
 		ArrayList<Picture> toDisplay = controller.createSelectedImageList();
 		System.out.println(toDisplay);
+		System.out.println(controller.getRightCategory());
 		Iterator<Picture> it = toDisplay.iterator();
 		while(it.hasNext()){
 			String relativeUrl = ".." + it.next().getUrl().substring("fr/upem/capcha".length());

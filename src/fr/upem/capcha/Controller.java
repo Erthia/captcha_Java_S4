@@ -6,13 +6,11 @@ import java.util.Collections;
 
 import fr.upem.capcha.images.Category;
 import fr.upem.capcha.images.Picture;
-import fr.upem.capcha.images.ponts.Ponts;
 
 public class Controller {
 	private ArrayList<Picture> imagesList;
 	private final Categories categoryList;
 	private Category rightCategory;
-	private Category wrongCategory; 
 
 	
 	public Controller(){
@@ -20,7 +18,6 @@ public class Controller {
 		setImagesList(new ArrayList<Picture>());
 		categoryList = new Categories();
 		rightCategory = categoryList.getRandomCat(); 
-		wrongCategory = new Ponts(); 
 	}
 	
 	// Getter & Setter
@@ -32,14 +29,6 @@ public class Controller {
 	public void setRightCategory(Category rightCategory) {
 		this.rightCategory = rightCategory;
 	}
-
-	public Category getWrongCategory() {
-		return wrongCategory;
-	}
-
-	public void setWrongCategory(Category wrongCategory) {
-		this.wrongCategory = wrongCategory;
-	}
 	
 	public Categories getCategoryList() {
 		return categoryList;
@@ -49,6 +38,17 @@ public class Controller {
 		return imagesList;
 	}
 
+	private ArrayList<Picture> getWrongPhotos(int nb){
+		ArrayList<Picture> result = new ArrayList<>(nb);
+		for(int i=0; i<nb; i++){
+			Category wrongCat = categoryList.getRandomCat();
+			while(wrongCat.getCategoryUrl().contains(this.rightCategory.getCategoryUrl()))
+				wrongCat = categoryList.getRandomCat();
+			result.add(wrongCat.getRandomPhoto());
+		}
+		return result;
+	}
+
 	public void setImagesList(ArrayList<Picture> imagesList) {
 		this.imagesList = imagesList;
 	}
@@ -56,12 +56,10 @@ public class Controller {
 	// Methods
 	public ArrayList<Picture> createSelectedImageList(){
 		ArrayList<Picture> right; 
-		ArrayList<Picture> wrong; 
 		imagesList.clear();
 		right = rightCategory.getRandomPhotos(4);  
-		imagesList.addAll(right); 
-		wrong = wrongCategory.getRandomPhotos(5); 
-		imagesList.addAll(wrong); 
+		imagesList.addAll(right);  
+		imagesList.addAll(getWrongPhotos(5));
 		Collections.shuffle(imagesList); 
 		return imagesList;
 	}

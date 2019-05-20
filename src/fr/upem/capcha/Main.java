@@ -11,7 +11,6 @@ public class Main {
 	    System.out.println("Categories : \n" + testCategories.getCategoryList());
 	    
 	    System.out.println("\nRight Category : \n" + test.getRightCategory().getCategory());
-	    System.out.println("\nWrong Category : \n" + test.getWrongCategory().getCategory());
 
 	    
 	    System.out.println("\nImages selectionnées : \n" + test.getImagesList());
