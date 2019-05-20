@@ -2,6 +2,7 @@ package fr.upem.capcha;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Random;
 
 import fr.upem.capcha.images.Category;
 import fr.upem.capcha.images.Images;
@@ -34,14 +35,9 @@ public class Categories {
 				File subFolder = test[i];
 				String str = subFolder.getName();
 				String className = str.substring(0, 1).toUpperCase() + str.substring(1);
-				System.out.println(className);
-
 				String path = subFolder.getPath(); 
 				path = cleanPath(path); 
-				System.out.println(path);
-				
 				String classPath = path + "." + className;
-				System.out.println(classPath);
 				try{
 					Class<?> classe = Class.forName(classPath);
 					Category instance = (Category) classe.newInstance();
@@ -73,11 +69,11 @@ public class Categories {
 	}
 	
 	//Methods
-	/*
-	Category getRandomCat(ArrayList<Category> list) {
-		return categoryList; 
-		//Retourne une category random parmi la liste
-	}*/
+	Category getRandomCat() {
+		long seed = System.currentTimeMillis();
+		Random RGenerator = new Random(seed);
+		return categoryList.get(RGenerator.nextInt(this.categoryList.size()));
+	}
 	
 	private String cleanPath(String namePackage) {
 		namePackage = namePackage.replace("/","."); 

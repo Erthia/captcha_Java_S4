@@ -8,7 +8,12 @@ public class Main {
 		
 		test.createSelectedImageList();
 		
-	    System.out.println(testCategories.getCategoryList());
-	    System.out.println(test.getImagesList());
+	    System.out.println("Categories : \n" + testCategories.getCategoryList());
+	    
+	    System.out.println("\nRight Category : \n" + test.getRightCategory().getCategory());
+	    System.out.println("\nWrong Category : \n" + test.getWrongCategory().getCategory());
+
+	    
+	    System.out.println("\nImages selectionnées : \n" + test.getImagesList());
 	}
 }
