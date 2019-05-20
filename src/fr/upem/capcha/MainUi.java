@@ -1,4 +1,4 @@
-package fr.upem.capcha.ui;
+package fr.upem.capcha;
  
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -52,7 +52,7 @@ public class MainUi {
 		System.out.println(controller.getRightCategory());
 		Iterator<Picture> it = toDisplay.iterator();
 		while(it.hasNext()){
-			String relativeUrl = ".." + it.next().getUrl().substring("fr/upem/capcha".length());
+			String relativeUrl = it.next().getUrl().substring("fr/upem/capcha/".length());
 			System.out.println(relativeUrl);
 			frame.add(createLabelImage(relativeUrl));
 		}
