@@ -7,8 +7,8 @@ import java.util.Random;
 
 public abstract class Category implements Images {
 	private ArrayList<Image> list;
-	String categoryUrl;
-	// maybe add a list of the children catogories, to manage the captcha difficulty
+	private String categoryUrl;
+	// Maybe add a list of the children catogories, to manage the captcha difficulty
 	
 	//Constructeur 
 	public Category() {
@@ -96,7 +96,7 @@ public abstract class Category implements Images {
 	
 	//Methods
 	private void createList(){
-        createList(new File(this.getCategoryUrl()), "", 0, 5);
+        createList(new File(this.getCategoryUrl()), "", 0, 20);
 	}
 	
 	private void createList(File currentFolder, String subCategory, int size, int sizeMax){

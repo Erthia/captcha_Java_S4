@@ -1,5 +1,6 @@
 package fr.upem.capcha.images;
 
+import fr.upem.capcha.images.vehicules.Vehicules;
 import fr.upem.capcha.images.vehicules.voitures.Voitures;
 import fr.upem.capcha.images.vehicules.voitures.rouges.Rouges;
 
