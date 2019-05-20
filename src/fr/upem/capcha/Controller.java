@@ -1,27 +1,26 @@
 package fr.upem.capcha;
 
-import fr.upem.capcha.images.vehicules.Vehicules;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
 import fr.upem.capcha.images.Category;
 import fr.upem.capcha.images.Picture;
-import fr.upem.capcha.images.panneaux.Panneaux;
+import fr.upem.capcha.images.ponts.Ponts;
 
 public class Controller {
 	private ArrayList<Picture> imagesList;
 	private final Categories categoryList;
 	private Category rightCategory;
-	private Category wrongCategory; // A supprimer une fois qu'on a la fonction qui filtre
+	private Category wrongCategory; 
 
 	
 	public Controller(){
 		super();
 		setImagesList(new ArrayList<Picture>());
 		categoryList = new Categories();
-		rightCategory = categoryList.getRandomCat(); // pour test, à faire une fonction getRandomCategory
-		wrongCategory = new Panneaux(); 
+		rightCategory = categoryList.getRandomCat(); 
+		wrongCategory = new Ponts(); 
 	}
 	
 	// Getter & Setter
