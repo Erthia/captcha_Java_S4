@@ -11,7 +11,7 @@ import fr.upem.capcha.images.panneaux.Panneaux;
 
 public class Controller {
 	private ArrayList<Picture> imagesList;
-	private ArrayList<Category> categoryList;
+	private final Categories categoryList;
 	private Category rightCategory;
 	private Category wrongCategory; // A supprimer une fois qu'on a la fonction qui filtre
 
@@ -19,20 +19,33 @@ public class Controller {
 	public Controller(){
 		super();
 		setImagesList(new ArrayList<Picture>());
-		setCategoryList(new ArrayList<Category>());
-		rightCategory = new Vehicules(); // pour test, à faire une fonction getRandomCategory
-		wrongCategory = new Panneaux(); // Faire une fonction qui recupère aléatoirement 5 photos qui ne sont pas rightCategory
+		categoryList = new Categories();
+		rightCategory = categoryList.getRandomCat(); // pour test, à faire une fonction getRandomCategory
+		wrongCategory = new Panneaux(); 
 	}
 	
 	// Getter & Setter
-	public ArrayList<Category> getCategoryList() {
+	
+	public Category getRightCategory() {
+		return rightCategory;
+	}
+
+	public void setRightCategory(Category rightCategory) {
+		this.rightCategory = rightCategory;
+	}
+
+	public Category getWrongCategory() {
+		return wrongCategory;
+	}
+
+	public void setWrongCategory(Category wrongCategory) {
+		this.wrongCategory = wrongCategory;
+	}
+	
+	public Categories getCategoryList() {
 		return categoryList;
 	}
-
-	public void setCategoryList(ArrayList<Category> categoryList) {
-		this.categoryList = categoryList;
-	}
-
+	
 	public ArrayList<Picture> getImagesList() {
 		return imagesList;
 	}
@@ -46,12 +59,11 @@ public class Controller {
 		ArrayList<Picture> right; 
 		ArrayList<Picture> wrong; 
 		imagesList.clear();
-		right = rightCategory.getRandomPhotos(4);  // J'ai l'impression que getRandomPhotos est encore faux... a retest
+		right = rightCategory.getRandomPhotos(4);  
 		imagesList.addAll(right); 
-		wrong = wrongCategory.getRandomPhotos(5); // fonction qui recupère 5 autres photos hors celle de rightCategory
+		wrong = wrongCategory.getRandomPhotos(5); 
 		imagesList.addAll(wrong); 
-		Collections.shuffle(imagesList);  // Met dans le desordre
+		Collections.shuffle(imagesList); 
 		return imagesList;
 	}
-
 }

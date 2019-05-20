@@ -123,4 +123,9 @@ public abstract class Category implements Images {
 			}
 		}
 	}
+	
+	@Override
+	public String toString() {
+		return "Category : url=" + getCategoryUrl() + ", category=" + getCategory() + "\n";
+	}
 }
