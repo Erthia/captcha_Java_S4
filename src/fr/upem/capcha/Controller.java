@@ -6,11 +6,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import fr.upem.capcha.images.Category;
-import fr.upem.capcha.images.Image;
+import fr.upem.capcha.images.Picture;
 import fr.upem.capcha.images.panneaux.Panneaux;
 
 public class Controller {
-	private ArrayList<Image> imagesList;
+	private ArrayList<Picture> imagesList;
 	private ArrayList<Category> categoryList;
 	private Category rightCategory;
 	private Category wrongCategory; // A supprimer une fois qu'on a la fonction qui filtre
@@ -18,7 +18,7 @@ public class Controller {
 	
 	public Controller(){
 		super();
-		setImagesList(new ArrayList<Image>());
+		setImagesList(new ArrayList<Picture>());
 		setCategoryList(new ArrayList<Category>());
 		rightCategory = new Vehicules(); // pour test, à faire une fonction getRandomCategory
 		wrongCategory = new Panneaux(); // Faire une fonction qui recupère aléatoirement 5 photos qui ne sont pas rightCategory
@@ -33,18 +33,18 @@ public class Controller {
 		this.categoryList = categoryList;
 	}
 
-	public ArrayList<Image> getImagesList() {
+	public ArrayList<Picture> getImagesList() {
 		return imagesList;
 	}
 
-	public void setImagesList(ArrayList<Image> imagesList) {
+	public void setImagesList(ArrayList<Picture> imagesList) {
 		this.imagesList = imagesList;
 	}
 	
 	// Methods
-	public ArrayList<Image> createSelectedImageList(){
-		ArrayList<Image> right; 
-		ArrayList<Image> wrong; 
+	public ArrayList<Picture> createSelectedImageList(){
+		ArrayList<Picture> right; 
+		ArrayList<Picture> wrong; 
 		imagesList.clear();
 		right = rightCategory.getRandomPhotos(4);  // J'ai l'impression que getRandomPhotos est encore faux... a retest
 		imagesList.addAll(right); 

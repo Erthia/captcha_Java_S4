@@ -1,12 +1,12 @@
 package fr.upem.capcha.images;
 
 
-public class Image {
+public class Picture {
 	final private String url;
 	final private String category;
 	
 	//Constructeur
-	public Image(String url, String category) {
+	public Picture(String url, String category) {
 		super();
 		this.url = url;
 		this.category = category;

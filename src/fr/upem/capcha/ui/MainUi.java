@@ -21,6 +21,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 
+import fr.upem.capcha.Controller;
+import fr.upem.capcha.images.Picture;
+
+
 public class MainUi {
 	
 	private static ArrayList<URL> selectedImages = new ArrayList<URL>();
@@ -39,19 +43,17 @@ public class MainUi {
 		
 		JButton okButton = createOkButton();
 
+		//Test link between UI and controller
+		Controller test = new Controller();
 		
-		frame.add(createLabelImage("centre ville.jpg")); //ajouter des composants à la fenêtre
-		frame.add(createLabelImage("le havre.jpg"));
-		frame.add(createLabelImage("panneau 70.jpg"));
-		frame.add(createLabelImage("panneaubleu-carre.jpeg"));
-		frame.add(createLabelImage("parking.jpg"));
-		frame.add(createLabelImage("route panneau.jpg"));
-		frame.add(createLabelImage("tour eiffel.jpg"));
-		frame.add(createLabelImage("ville espace verts.jpg"));
-		frame.add(createLabelImage("voie pieton.jpg"));
-		
-		
-		
+		ArrayList<Picture> toDisplay = test.createSelectedImageList();
+		for(Picture picture : toDisplay){
+			if(picture != null)
+				System.out.println(picture.getUrl());
+			frame.add(createLabelImage(picture.getUrl()));
+		}
+		//
+
 		frame.add(new JTextArea("Cliquez n'importe où ... juste pour tester l'interface !"));
 		
 		

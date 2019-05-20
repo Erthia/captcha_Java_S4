@@ -6,14 +6,14 @@ import java.util.Objects;
 import java.util.Random;
 
 public abstract class Category implements Images {
-	private ArrayList<Image> list;
+	private ArrayList<Picture> list;
 	private String categoryUrl;
 	// Maybe add a list of the children catogories, to manage the captcha difficulty
 	
 	//Constructeur 
 	public Category() {
 		super();
-		list = new ArrayList<Image>();
+		list = new ArrayList<Picture>();
 		String path = Images.class.getResource("Images.class").getPath();
 		File fileParent = new File(path);
 		String pathParent = fileParent.getParent(); 
@@ -32,11 +32,11 @@ public abstract class Category implements Images {
 	}
 
 	//Getter & Setter
-	public ArrayList<Image> getList() {
+	public ArrayList<Picture> getList() {
 		return list;
 	}
 	
-	public void setList(ArrayList<Image> list) {
+	public void setList(ArrayList<Picture> list) {
 		this.list = list;
 	}
 	
@@ -51,20 +51,20 @@ public abstract class Category implements Images {
 
 	//Interface's Method
 	@Override
-	public ArrayList<Image> getPhotos() {
+	public ArrayList<Picture> getPhotos() {
 		return list;
 	}
 
 	@Override
-	public ArrayList<Image> getRandomPhotos(int nbImages){
+	public ArrayList<Picture> getRandomPhotos(int nbImages){
 		if (nbImages > list.size()) { 
 			 throw new IllegalArgumentException("nbImages trop grand");
 		}
-		ArrayList<Image> result = new ArrayList<>();
-		ArrayList<Image> tmp = list;
+		ArrayList<Picture> result = new ArrayList<>();
+		ArrayList<Picture> tmp = list;
 
 		for(int cpt=0; cpt<nbImages; cpt ++){
-			Image randomPhoto = getRandomPhoto(tmp);
+			Picture randomPhoto = getRandomPhoto(tmp);
 			result.add(randomPhoto);
 			tmp.remove(randomPhoto);
 		}
@@ -72,13 +72,13 @@ public abstract class Category implements Images {
 	}
 
 	@Override
-	public Image getRandomPhoto() {
+	public Picture getRandomPhoto() {
 		long seed = System.currentTimeMillis();
 		Random RGenerator = new Random(seed);
 		return list.get(RGenerator.nextInt(this.list.size()));
 	}
 	
-	public Image getRandomPhoto(ArrayList<Image> tmpList) {
+	public Picture getRandomPhoto(ArrayList<Picture> tmpList) {
 		long seed = System.currentTimeMillis();
 		Random RGenerator = new Random(seed);
 		return tmpList.get(RGenerator.nextInt(tmpList.size()));
@@ -119,7 +119,7 @@ public abstract class Category implements Images {
 				createList(subFolder, subCategory, size, sizeMax);
 			}
 			else if(test[i].getName().contains(".jpg")){
-				list.add(new Image(test[i].getPath(), currentFolder.getName()));
+				list.add(new Picture(test[i].getPath(), currentFolder.getName()));
 			}
 		}
 	}
