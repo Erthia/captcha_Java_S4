@@ -11,6 +11,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.imageio.ImageIO;
 import javax.swing.AbstractAction;
@@ -44,13 +45,13 @@ public class MainUi {
 		JButton okButton = createOkButton();
 
 		//Test link between UI and controller
-		Controller test = new Controller();
+		Controller controller = new Controller();
 		
-		ArrayList<Picture> toDisplay = test.createSelectedImageList();
-		for(Picture picture : toDisplay){
-			if(picture != null)
-				System.out.println(picture.getUrl());
-			frame.add(createLabelImage(picture.getUrl()));
+		ArrayList<Picture> toDisplay = controller.createSelectedImageList();
+		System.out.println(toDisplay);
+		Iterator<Picture> it = toDisplay.iterator();
+		while(it.hasNext()){
+			frame.add(createLabelImage(it.next().getUrl()));
 		}
 		//
 
