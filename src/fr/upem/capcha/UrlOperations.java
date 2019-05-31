@@ -1,5 +1,8 @@
 package fr.upem.capcha;
 
+import java.io.File;
+import java.util.Objects;
+
 final public class UrlOperations{
     //transform absolutePath to relative path "fr/upem/..."
   static public String AbsoluteToRelative(String absPath){
@@ -17,5 +20,13 @@ final public class UrlOperations{
     }
     return result;
   }
+
+  static public String cleanPath(String namePackage) {
+		Objects.requireNonNull(namePackage, "Le nom du package ne doit pas être nul");
+		namePackage = namePackage.replace(".", File.separator); 
+		namePackage = namePackage.substring(namePackage.lastIndexOf("images" + File.separator), namePackage.length()); // filtre jusqu'a /images
+		namePackage = namePackage.replace("images" + File.separator, File.separator); // remplace images/ par /
+		return namePackage;
+	}
 
 }

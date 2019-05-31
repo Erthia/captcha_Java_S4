@@ -2,7 +2,6 @@ package fr.upem.capcha.images;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.Random;
 
 import fr.upem.capcha.UrlOperations;
@@ -21,18 +20,10 @@ public abstract class Category implements Images {
 		File fileParent = new File(path);
 		String pathParent = fileParent.getParent(); 
 		String namePackage = this.getClass().getPackageName(); 
-		namePackage = cleanPath(namePackage); 
+		namePackage = UrlOperations.cleanPath(namePackage); 
 		this.categoryUrl = UrlOperations.AbsoluteToRelative(pathParent + namePackage);
 		this.level = UrlOperations.countSeparators(categoryUrl, File.separatorChar) - 4;
 		createList();
-	}
-	
-	private String cleanPath(String namePackage) {
-		Objects.requireNonNull(namePackage, "Le nom du package ne doit pas être nul");
-		namePackage = namePackage.replace(".", "/"); 
-		namePackage = namePackage.substring(namePackage.lastIndexOf("images/"), namePackage.length()); // filtre jusqu'a /images
-		namePackage = namePackage.replace("images/", "/"); // remplace images/ par /
-		return namePackage;
 	}
 
 	//Getter & Setter
