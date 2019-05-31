@@ -42,32 +42,33 @@ public class MainUi {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Lorsque l'on ferme la fenêtre on quitte le programme.
 		 
 
-		JButton okButton = createOkButton(frame);
-
-		//Link between UI and controller
+		//Test link between UI and controller
 		Controller controller = new Controller();
-		controller.setRightCategory(0);
+		int level = 0;
+		setFrame(controller, frame, level);
+	}
+	
+	private static void setFrame(Controller controller, JFrame frame, int level) throws IOException{
+		controller.setRightCategory(level);
 		ArrayList<Picture> toDisplay = controller.createSelectedImageList();
-		System.out.println(toDisplay);
-		System.out.println(controller.getRightCategory());
+		
 		if (toDisplay.size() != 9) throw new IllegalArgumentException("The list of pictures to display has not 9 Pictures");
 		for (int i = 0; i < 9; ++i)
 			frame.add(createLabelImage(toDisplay.get(i)));
-
+	
 		frame.add(new JTextArea("\nRight Category : \n" + controller.getRightCategory().getCategory()));
 		
-		
+		JButton okButton = createOkButton(controller, frame, level);
 		frame.add(okButton);
 		
 		frame.setVisible(true);
 	}
 	
-	
 	private static GridLayout createLayout(){
 		return new GridLayout(4,3);
 	}
 	
-	private static JButton createOkButton(JFrame frame){
+	private static JButton createOkButton(Controller controller, JFrame frame, int level){
 		return new JButton(new AbstractAction("Vérifier") { //ajouter l'action du bouton
 			
 			/**
@@ -89,6 +90,8 @@ public class MainUi {
 									    "Vous vous êtes trompés",
 									    "Résultat",
 										JOptionPane.PLAIN_MESSAGE);
+								frame.getContentPane().removeAll();
+								setFrame(controller, frame, level+1);
 							}
 							else {
 								 int input = JOptionPane.showConfirmDialog(frame, 
