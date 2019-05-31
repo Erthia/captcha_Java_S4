@@ -5,9 +5,12 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Random;
 
+import fr.upem.capcha.UrlOperations;
+
 public abstract class Category implements Images {
 	private ArrayList<Picture> list;
 	private String categoryUrl;
+	public final int level; // from 0
 	// Maybe add a list of the children catogories, to manage the captcha difficulty
 	
 	//Constructeur 
@@ -19,7 +22,8 @@ public abstract class Category implements Images {
 		String pathParent = fileParent.getParent(); 
 		String namePackage = this.getClass().getPackageName(); 
 		namePackage = cleanPath(namePackage); 
-		this.categoryUrl = pathParent + namePackage;
+		this.categoryUrl = UrlOperations.AbsoluteToRelative(pathParent + namePackage);
+		this.level = UrlOperations.countSeparators(categoryUrl, File.separatorChar) - 4;
 		createList();
 	}
 	
@@ -96,7 +100,7 @@ public abstract class Category implements Images {
 	
 	//Methods
 	private void createList(){
-        createList(new File(this.getCategoryUrl()), "", 0, 20);
+    createList(new File(this.getCategoryUrl()), "", 0, 20);
 	}
 	
 	private void createList(File currentFolder, String subCategory, int size, int sizeMax){
@@ -117,17 +121,14 @@ public abstract class Category implements Images {
 				createList(subFolder, subCategory, size, sizeMax);
 			}
 			else if(test[i].getName().contains(".jpg")){
-				//transform absolutePath to relative path "fr/upem/...", construct the new picture and add it to the list
-				String pictureUrl = test[i].getAbsolutePath();
-				int cut = pictureUrl.lastIndexOf("fr/upem/capcha/images/");
-				if (cut==-1) throw new IllegalArgumentException("Arborescence problem");
-				list.add(new Picture(pictureUrl.substring(cut), currentFolder.getName()));
+				String relUrl = UrlOperations.AbsoluteToRelative(test[i].getAbsolutePath());
+				list.add(new Picture(relUrl, currentFolder.getName()));
 			}
 		}
 	}
 	
 	@Override
 	public String toString() {
-		return "Category : url=" + getCategoryUrl() + ", category=" + getCategory() + "\n";
+		return "Category : url=" + getCategoryUrl() + ", category=" + getCategory() + "\n" + ", level=" + this.level;
 	}
 }
