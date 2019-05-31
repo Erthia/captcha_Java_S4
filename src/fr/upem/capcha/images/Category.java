@@ -111,17 +111,17 @@ public abstract class Category implements Images {
 		
 		for(int i=0; i< test.length; i++){
 			if(test[i].isDirectory()){
-				// Modify here if we want to represent the file arborescence with a tree
-				// Idea : create the sub-category here, and call its getPhotos , then add the photos in the list of the current Category
 				subCategory = currentFolder.getName();
 				size++;
 				File subFolder = test[i];
 				createList(subFolder, subCategory, size, sizeMax);
 			}
 			else if(test[i].getName().contains(".jpg")){
-				String namePackage = this.getClass().getPackageName();
-				namePackage = namePackage.replace(".", "/"); 
-				list.add(new Picture(namePackage + "/" + test[i].getName(), currentFolder.getName()));
+				//transform absolutePath to relative path "fr/upem/...", construct the new picture and add it to the list
+				String pictureUrl = test[i].getAbsolutePath();
+				int cut = pictureUrl.lastIndexOf("fr/upem/capcha/images/");
+				if (cut==-1) throw new IllegalArgumentException("Arborescence problem");
+				list.add(new Picture(pictureUrl.substring(cut), currentFolder.getName()));
 			}
 		}
 	}

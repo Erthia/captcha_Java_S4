@@ -50,12 +50,9 @@ public class MainUi {
 		ArrayList<Picture> toDisplay = controller.createSelectedImageList();
 		System.out.println(toDisplay);
 		System.out.println(controller.getRightCategory());
-		if (toDisplay.size() == 9) {
-			for (int i = 0; i < 9; ++i) {
-				frame.add(createLabelImage(toDisplay.get(i)));
-			}
-		}
-		//
+		if (toDisplay.size() != 9) throw new IllegalArgumentException("The list of pictures to display has not 9 Pictures");
+		for (int i = 0; i < 9; ++i)
+			frame.add(createLabelImage(toDisplay.get(i)));
 
 		frame.add(new JTextArea("\nRight Category : \n" + controller.getRightCategory().getCategory()));
 		
