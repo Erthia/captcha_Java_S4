@@ -118,7 +118,7 @@ public abstract class Category implements Images {
 				File subFolder = test[i];
 				createList(subFolder, subCategory, size, sizeMax);
 			}
-			else if(test[i].getName().contains(".jpg") || test[i].getName().contains(".JPG") || test[i].getName().contains(".jpeg")){
+			else if(test[i].getName().endsWith(".jpg") || test[i].getName().endsWith(".JPG") || test[i].getName().endsWith(".jpeg") || test[i].getName().endsWith(".png")){
 				String relUrl = UrlOperations.AbsoluteToRelative(test[i].getAbsolutePath());
 				list.add(new Picture(relUrl, currentFolder.getName()));
 			}
