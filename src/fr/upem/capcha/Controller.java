@@ -10,8 +10,8 @@ import fr.upem.capcha.images.Picture;
 public class Controller {
 	private ArrayList<Picture> imagesList;
 	private final Categories categoryList;
-	private Category rightCategory;
-
+	private static Category rightCategory;
+	public static boolean success;
 	
 	public Controller(){
 		super();
@@ -27,7 +27,7 @@ public class Controller {
 	}
 
 	public void setRightCategory(Category rightCategory) {
-		this.rightCategory = rightCategory;
+		Controller.rightCategory = rightCategory;
 	}
 	
 	public Categories getCategoryList() {
@@ -40,7 +40,7 @@ public class Controller {
 
 	private Category getWrongPhotos(){
 		Category wrongCat = categoryList.getRandomCat();
-		while(wrongCat.getCategoryUrl().contains(this.rightCategory.getCategoryUrl())) {
+		while(wrongCat.getCategoryUrl().contains(Controller.rightCategory.getCategoryUrl())) {
 			wrongCat = categoryList.getRandomCat();
 		}
 		return wrongCat;
@@ -48,6 +48,14 @@ public class Controller {
 
 	public void setImagesList(ArrayList<Picture> imagesList) {
 		this.imagesList = imagesList;
+	}
+
+	public static boolean isSuccess() {
+		return success;
+	}
+
+	public void setSuccess(boolean success) {
+		Controller.success = success;
 	}
 	
 	// Methods
@@ -59,5 +67,22 @@ public class Controller {
 		imagesList.addAll(getWrongPhotos().getRandomPhotos(5));
 		Collections.shuffle(imagesList); 
 		return imagesList;
+	}
+	
+	public static boolean verify(ArrayList<Picture> list) throws Exception {
+		int count = 0;
+		for (int i = 0; i < list.size(); ++i) {
+			if (!list.get(i).getCategoryClass().isPhotoCorrect(rightCategory))
+				return false;
+			++count;
+		}
+		if (count >= 4)
+			return true;
+		else
+			return false;
+	}
+	
+	public static void check(ArrayList<Picture> list) throws Exception {
+		success = verify(list);
 	}
 }
