@@ -20,9 +20,10 @@ public abstract class Category implements Images {
 		File fileParent = new File(path);
 		String pathParent = fileParent.getParent(); 
 		String namePackage = this.getClass().getPackageName(); 
-		namePackage = UrlOperations.cleanPath(namePackage); 
-		this.categoryUrl = UrlOperations.AbsoluteToRelative(pathParent + namePackage);
-		this.level = UrlOperations.countSeparators(categoryUrl, File.separatorChar) - 4;
+		namePackage = UrlOperations.cleanPath(namePackage);
+		this.categoryUrl = pathParent + namePackage;
+		String relativeUrl = UrlOperations.AbsoluteToRelative(pathParent + namePackage);
+		this.level = UrlOperations.countSeparators(relativeUrl, File.separatorChar) - 4;
 		createList();
 	}
 
