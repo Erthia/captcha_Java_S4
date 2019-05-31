@@ -59,7 +59,7 @@ public abstract class Category implements Images {
 	@Override
 	public ArrayList<Picture> getRandomPhotos(int nbImages){
 		if (nbImages > list.size()) { 
-			 throw new IllegalArgumentException("nbImages trop grand");
+			 throw new IllegalArgumentException("Not enough images in " + getCategory() + " (" + list.size() + ")");
 		}
 		ArrayList<Picture> result = new ArrayList<>();
 		ArrayList<Picture> tmp = list;
@@ -102,7 +102,6 @@ public abstract class Category implements Images {
 	
 	private void createList(File currentFolder, String subCategory, int size, int sizeMax){
 		File[] test = currentFolder.listFiles();
-		boolean hasSubDirectory = false;
 		if (size > sizeMax) {
             return;
         }
@@ -119,7 +118,7 @@ public abstract class Category implements Images {
 				File subFolder = test[i];
 				createList(subFolder, subCategory, size, sizeMax);
 			}
-			else if(test[i].getName().contains(".jpg")){
+			else if(test[i].getName().contains(".jpg") || test[i].getName().contains(".JPG") || test[i].getName().contains(".jpeg")){
 				String relUrl = UrlOperations.AbsoluteToRelative(test[i].getAbsolutePath());
 				list.add(new Picture(relUrl, currentFolder.getName()));
 			}
@@ -128,6 +127,6 @@ public abstract class Category implements Images {
 	
 	@Override
 	public String toString() {
-		return "Category : url=" + getCategoryUrl() + ", category=" + getCategory() + "\n" + ", level=" + this.level;
+		return "Category : url=" + getCategoryUrl() + ", category=" + getCategory() + "\n" + ", level=" + this.level +", last level ? " + this.lastLevel;
 	}
 }

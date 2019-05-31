@@ -1,5 +1,6 @@
 package fr.upem.capcha.images;
 
+import fr.upem.capcha.images.panneaux.ronds.Ronds;
 import fr.upem.capcha.images.vehicules.voitures.Voitures;
 import fr.upem.capcha.images.vehicules.voitures.rouges.Rouges;
 
@@ -23,6 +24,15 @@ public class Main {
 	    System.out.println("Photos : \n" + testVoitureRouge.getPhotos());
 		System.out.println("Random photos : \n" + testVoitureRouge.getRandomPhotos(2));
 
+		// Test panneaux ronds
+
+		System.out.println("\n ------ PANNEAUX RONDS ------");
+		Category testPanneauxRonds = new Ronds();
+
+	    System.out.println("CategorieUrl : " + testPanneauxRonds.getCategoryUrl());
+	    System.out.println("Categorie : " + testPanneauxRonds.getCategory());   
+	    System.out.println("Photos : \n" + testPanneauxRonds.getPhotos());
+		System.out.println("Random photos : \n" + testPanneauxRonds.getRandomPhotos(2));
 	    
 		// Test photos	  
 	    System.out.println("\n ------ TEST ------");

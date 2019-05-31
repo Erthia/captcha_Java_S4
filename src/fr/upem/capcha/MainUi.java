@@ -44,7 +44,7 @@ public class MainUi {
 
 		JButton okButton = createOkButton(frame);
 
-		//Test link between UI and controller
+		//Link between UI and controller
 		Controller controller = new Controller();
 		controller.setRightCategory(0);
 		ArrayList<Picture> toDisplay = controller.createSelectedImageList();
