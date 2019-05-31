@@ -51,7 +51,7 @@ public class MainUi {
 	private static void setFrame(Controller controller, JFrame frame, int level) throws IOException{
 		controller.setRightCategory(level);
 		ArrayList<Picture> toDisplay = controller.createSelectedImageList();
-		
+		System.out.println("Niveau de difficulté : " + level);
 		if (toDisplay.size() != 9) throw new IllegalArgumentException("The list of pictures to display has not 9 Pictures");
 		for (int i = 0; i < 9; ++i)
 			frame.add(createLabelImage(toDisplay.get(i)));
