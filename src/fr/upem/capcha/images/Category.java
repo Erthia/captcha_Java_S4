@@ -10,6 +10,7 @@ public abstract class Category implements Images {
 	private ArrayList<Picture> list;
 	private String categoryUrl;
 	public final int level; // from 0
+	private boolean lastLevel = true;
 	// Maybe add a list of the children catogories, to manage the captcha difficulty
 	
 	//Constructeur 
@@ -43,6 +44,10 @@ public abstract class Category implements Images {
 	public String getCategory() {
 		String category = this.getClass().getSimpleName().toLowerCase();
 		return category;
+	}
+
+	public final boolean getLastLevel(){
+		return lastLevel;
 	}
 
 	//Interface's Method
@@ -97,6 +102,7 @@ public abstract class Category implements Images {
 	
 	private void createList(File currentFolder, String subCategory, int size, int sizeMax){
 		File[] test = currentFolder.listFiles();
+		boolean hasSubDirectory = false;
 		if (size > sizeMax) {
             return;
         }
@@ -107,6 +113,7 @@ public abstract class Category implements Images {
 		
 		for(int i=0; i< test.length; i++){
 			if(test[i].isDirectory()){
+				lastLevel = false;
 				subCategory = currentFolder.getName();
 				size++;
 				File subFolder = test[i];

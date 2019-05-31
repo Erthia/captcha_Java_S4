@@ -26,7 +26,6 @@ public class Controller {
 	}
 
 	// does not verify if the value of level is too high
-	// TO VERIFY
 	public void setRightCategory(int level) {
 		if (level < 0) throw new IllegalArgumentException("The level must be positive");
 		do rightCategory = categoryList.getRandomCat();
