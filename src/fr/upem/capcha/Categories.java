@@ -76,7 +76,7 @@ public class Categories {
 	}
 	
 	private String cleanPath(String namePackage) {
-		namePackage = namePackage.replace("/","."); 
+		namePackage = namePackage.replace(File.separator,"."); 
 		namePackage = namePackage.substring(namePackage.lastIndexOf("fr."), namePackage.length()); // filtre jusqu'a /images
 		return namePackage;
 	}

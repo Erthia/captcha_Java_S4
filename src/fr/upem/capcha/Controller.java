@@ -17,7 +17,6 @@ public class Controller {
 		super();
 		setImagesList(new ArrayList<Picture>());
 		categoryList = new Categories();
-		rightCategory = categoryList.getRandomCat(); 
 	}
 	
 	// Getter & Setter
@@ -26,8 +25,12 @@ public class Controller {
 		return rightCategory;
 	}
 
-	public void setRightCategory(Category rightCategory) {
-		Controller.rightCategory = rightCategory;
+	// does not verify if the value of level is too high
+	// TO VERIFY
+	public void setRightCategory(int level) {
+		if (level < 0) throw new IllegalArgumentException("The level must be positive");
+		do rightCategory = categoryList.getRandomCat();
+		while (rightCategory.level != level);
 	}
 	
 	public Categories getCategoryList() {

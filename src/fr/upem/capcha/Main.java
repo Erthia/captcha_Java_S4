@@ -3,6 +3,7 @@ package fr.upem.capcha;
 import fr.upem.capcha.images.Category;
 import fr.upem.capcha.images.ponts.Ponts;
 
+// test class
 public class Main {
 
 	public static void main(String[] args) throws Exception {
