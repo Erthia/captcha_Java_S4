@@ -3,38 +3,33 @@ package fr.upem.capcha.images;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Objects;
 
 import fr.upem.capcha.UrlOperations;
 
 public abstract class Category implements Images {
-	private ArrayList<Picture> list;
+	private ArrayList<Picture> picturesList = new ArrayList<Picture>();
 	private String categoryUrl;
-	public final int level; // from 0
-	private boolean lastLevel = true;
-	// Maybe add a list of the children catogories, to manage the captcha difficulty
+	private ArrayList<Category> children;
 	
 	//Constructeur 
 	public Category() {
 		super();
-		list = new ArrayList<Picture>();
 		String path = Images.class.getResource("Images.class").getPath();
 		File fileParent = new File(path);
 		String pathParent = fileParent.getParent(); 
 		String namePackage = this.getClass().getPackageName(); 
 		namePackage = UrlOperations.cleanPath(namePackage);
 		this.categoryUrl = pathParent + namePackage;
-		String relativeUrl = UrlOperations.AbsoluteToRelative(pathParent + namePackage);
-		this.level = UrlOperations.countSeparators(relativeUrl, File.separatorChar) - 4;
-		createList();
 	}
 
 	//Getter & Setter
 	public ArrayList<Picture> getList() {
-		return list;
+		return picturesList;
 	}
-	
-	public void setList(ArrayList<Picture> list) {
-		this.list = list;
+
+	public void addPictures(ArrayList<Picture> pictures){
+		picturesList.addAll(pictures);
 	}
 	
 	public String getCategoryUrl() {
@@ -46,23 +41,27 @@ public abstract class Category implements Images {
 		return category;
 	}
 
-	public final boolean getLastLevel(){
-		return lastLevel;
+	public ArrayList<Category> getChildren(){
+		return (ArrayList<Category>) children.clone();
+	}
+
+	public void setChildren(ArrayList<Category> children){
+		this.children = children; 
 	}
 
 	//Interface's Method
 	@Override
 	public ArrayList<Picture> getPhotos() {
-		return list;
+		return picturesList;
 	}
 
 	@Override
 	public ArrayList<Picture> getRandomPhotos(int nbImages){
-		if (nbImages > list.size()) { 
-			 throw new IllegalArgumentException("Not enough images in " + getCategory() + " (" + list.size() + ")");
+		if (nbImages > picturesList.size()) { 
+			 throw new IllegalArgumentException("Not enough images in " + getCategory() + " (" + picturesList.size() + ")");
 		}
 		ArrayList<Picture> result = new ArrayList<>();
-		ArrayList<Picture> tmp = list;
+		ArrayList<Picture> tmp = picturesList;
 
 		for(int cpt=0; cpt<nbImages; cpt ++){
 			Picture randomPhoto = getRandomPhoto(tmp);
@@ -76,7 +75,7 @@ public abstract class Category implements Images {
 	public Picture getRandomPhoto() {
 		long seed = System.currentTimeMillis();
 		Random RGenerator = new Random(seed);
-		return list.get(RGenerator.nextInt(this.list.size()));
+		return picturesList.get(RGenerator.nextInt(this.picturesList.size()));
 	}
 	
 	public Picture getRandomPhoto(ArrayList<Picture> tmpList) {
@@ -94,39 +93,54 @@ public abstract class Category implements Images {
 			return false;
 		}
 	}
-	
-	//Methods
-	private void createList(){
-    createList(new File(this.getCategoryUrl()), "", 0, 20);
-	}
-	
-	private void createList(File currentFolder, String subCategory, int size, int sizeMax){
-		File[] test = currentFolder.listFiles();
-		if (size > sizeMax) {
-            return;
-        }
-		if(test== null){
-			System.out.println("Problem !");
-			return;
+
+	// does not verify is the file is a folder
+	// return null if problems when instancing the Category.
+	static public Category instanceFromFolder(File folder){
+		String str = folder.getName();
+		String className = str.substring(0, 1).toUpperCase() + str.substring(1);
+		String path = folder.getPath(); 
+		path = cleanPath(path);
+		String classPath = path + "." + className;
+		try{
+			Class<?> classe = Class.forName(classPath);
+			return (Category) classe.newInstance();
 		}
-		
-		for(int i=0; i< test.length; i++){
-			if(test[i].isDirectory()){
-				lastLevel = false;
-				subCategory = currentFolder.getName();
-				size++;
-				File subFolder = test[i];
-				createList(subFolder, subCategory, size, sizeMax);
+			catch (ClassNotFoundException e){
+				System.out.println("La classe n'existe pas");
+				throw new IllegalArgumentException();
 			}
-			else if(test[i].getName().endsWith(".jpg") || test[i].getName().endsWith(".JPG") || test[i].getName().endsWith(".jpeg") || test[i].getName().endsWith(".png")){
-				String relUrl = UrlOperations.AbsoluteToRelative(test[i].getAbsolutePath());
-				list.add(new Picture(relUrl, currentFolder.getName()));
+			catch (InstantiationException e){
+				System.out.println(" La classe est abstract ou est une interface ou n'a pas de constructeur accessible sans paramètre");
+				throw new IllegalArgumentException();
 			}
-		}
+			catch (IllegalAccessException e){
+				System.out.println("La classe n'est pas accessible");
+				throw new IllegalArgumentException();
+			}
 	}
+
 	
 	@Override
 	public String toString() {
-		return "Category : url=" + getCategoryUrl() + ", category=" + getCategory() + "\n" + ", level=" + this.level +", last level ? " + this.lastLevel;
+		return "Category : url=" + getCategoryUrl() + ", category=" + getCategory() + "\n";
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		return obj.getClass().equals(this.getClass());
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(picturesList, categoryUrl, children);
+	}
+
+	private static String cleanPath(String namePackage) {
+		namePackage = namePackage.replace(File.separator, ".");
+		namePackage = namePackage.substring(namePackage.lastIndexOf("fr."), namePackage.length()); // filtre jusqu'a /images
+		return namePackage;
+	}
+
+	
 }

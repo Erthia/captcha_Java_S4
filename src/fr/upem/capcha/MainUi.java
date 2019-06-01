@@ -43,22 +43,28 @@ public class MainUi {
 		 
 
 		//Test link between UI and controller
-		Controller controller = new Controller();
-		int level = 0;
-		setFrame(controller, frame, level);
+		Categories categories = new Categories();
+		Controller controller = new Controller(categories);
+		setFrame(controller, frame);
 	}
 	
-	private static void setFrame(Controller controller, JFrame frame, int level) throws IOException{
-		controller.setRightCategory(level);
+	private static void setFrame(Controller controller, JFrame frame) throws IOException{
+		controller.setRightCategory();
+		if(controller.getRightCategory() == null){
+			JOptionPane.showMessageDialog(frame, 
+					"Vous êtes un robot",
+					"Résultat",
+					JOptionPane.PLAIN_MESSAGE);
+				frame.dispose();
+		}
 		ArrayList<Picture> toDisplay = controller.createSelectedImageList();
-		System.out.println("Niveau de difficulté : " + level);
 		if (toDisplay.size() != 9) throw new IllegalArgumentException("The list of pictures to display has not 9 Pictures");
 		for (int i = 0; i < 9; ++i)
 			frame.add(createLabelImage(toDisplay.get(i)));
 	
 		frame.add(new JTextArea("\n Veuillez sélectionner la bonne catégorie : \n" + controller.getRightCategory().getCategory()));
 		
-		JButton okButton = createOkButton(controller, frame, level);
+		JButton okButton = createOkButton(controller, frame);
 		frame.add(okButton);
 		
 		frame.setVisible(true);
@@ -68,7 +74,7 @@ public class MainUi {
 		return new GridLayout(4,3);
 	}
 	
-	private static JButton createOkButton(Controller controller, JFrame frame, int level){
+	private static JButton createOkButton(Controller controller, JFrame frame){
 		return new JButton(new AbstractAction("Vérifier") { //ajouter l'action du bouton
 			
 			/**
@@ -91,7 +97,7 @@ public class MainUi {
 									    "Résultat",
 										JOptionPane.PLAIN_MESSAGE);
 								frame.getContentPane().removeAll();
-								setFrame(controller, frame, level+1);
+								setFrame(controller, frame);
 							}
 							else {
 								 int input = JOptionPane.showConfirmDialog(frame, 

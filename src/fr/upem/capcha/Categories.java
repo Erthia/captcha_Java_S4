@@ -3,63 +3,58 @@ package fr.upem.capcha;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.List;
 
 import fr.upem.capcha.images.Category;
 import fr.upem.capcha.images.Images;
+import fr.upem.capcha.images.Picture;
+import java.util.Iterator;
 
 public class Categories {
-	private ArrayList<Category> categoryList;
+	private ArrayList<Category> categoryList; // only the categories which level is 0
 
 	public Categories() {
-		super();
-		categoryList = new ArrayList<Category>();
 		String path = Images.class.getResource("Images.class").getPath();
 		File folder = new File(path);
-		path = folder.getParent(); 
-		createCategoryList(new File(path), 0, 10);
+		path = folder.getParent();
+		this.categoryList = createCategoryList(new File(path), null);
 	}
-	
-	private void createCategoryList(File currentFolder, int size, int sizeMax){
-		if (size > sizeMax) {
-            return;
-        }
-		
-		File[] test = currentFolder.listFiles();
-		if(test== null){
-			System.out.println("Problem !");
-			return;
-		}
-		
-		for(int i=0; i< test.length; i++){
-			if(test[i].isDirectory()){        		
-				File subFolder = test[i];
-				String str = subFolder.getName();
-				String className = str.substring(0, 1).toUpperCase() + str.substring(1);
-				String path = subFolder.getPath(); 
-				path = cleanPath(path); 
-				String classPath = path + "." + className;
-				try{
-					Class<?> classe = Class.forName(classPath);
-					Category instance = (Category) classe.newInstance();
-					categoryList.add(instance);
-				}
-			    catch (ClassNotFoundException e){
-			      System.out.println("La classe n'existe pas");
-			    }
-			    catch (InstantiationException e){
-			      System.out.println(" La classe est abstract ou est une interface ou n'a pas de constructeur accessible sans paramètre");
-			    }
-			    catch (IllegalAccessException e){
-				  System.out.println("La classe n'est pas accessible");
-			    }
 
-				size++;
-				createCategoryList(subFolder, size, sizeMax);
+	private ArrayList<Category> createCategoryList(File currentFolder, Category currentCat) {
+		ArrayList<Category> childrenCat = new ArrayList<>();
+		ArrayList<Picture> pictures = new ArrayList<>();
+		File[] subFiles = currentFolder.listFiles();
+		if (subFiles == null) {
+			throw new IllegalArgumentException("There is a problem concerning the current folder, or an I/O error occurs");
+		}
+
+		for (int i = 0; i < subFiles.length; i++) {
+			if (subFiles[i].isDirectory()) {
+				Category instance = Category.instanceFromFolder(subFiles[i]);
+				if(instance == null) throw new IllegalArgumentException("The name of the folder does not match a name of a class");
+				instance.setChildren(createCategoryList(subFiles[i], instance));
+				// une fois la récurrence déroulée,
+				// on parcourt la liste de pictures des enfants de l'enfant pour construire celle de l'enfant
+				Iterator<Category> it = instance.getChildren().iterator();
+				while(it.hasNext()){
+					ArrayList<Picture> currentPictures = it.next().getList();
+					if(currentPictures != null)
+						instance.addPictures(currentPictures);
+				}
+				childrenCat.add(instance);
+			}
+			else if(subFiles[i].getName().endsWith(".jpg") || subFiles[i].getName().endsWith(".JPG") || subFiles[i].getName().endsWith(".jpeg") || subFiles[i].getName().endsWith(".png")){
+				String relUrl = UrlOperations.AbsoluteToRelative(subFiles[i].getAbsolutePath());
+				pictures.add(new Picture(relUrl, currentFolder.getName()));
+				//comment récupérer les images enfants ???
 			}
 		}
-	}
+		if(currentCat != null && pictures != null) currentCat.addPictures(pictures);
+		return childrenCat;
+}
 
-	//Getter & Setter
+
+	// Getter & Setter
 	public ArrayList<Category> getCategoryList() {
 		return categoryList;
 	}
@@ -67,19 +62,15 @@ public class Categories {
 	public void setCategoryList(ArrayList<Category> categoryList) {
 		this.categoryList = categoryList;
 	}
-	
-	//Methods
-	Category getRandomCat() {
+
+	// Methods
+	public final Category getRandomCat() {
+		return getRandomCat(this.categoryList);
+	}
+
+	static public final Category getRandomCat(List<Category> catList) {
 		long seed = System.currentTimeMillis();
 		Random RGenerator = new Random(seed);
-		return categoryList.get(RGenerator.nextInt(this.categoryList.size()));
+		return catList.get(RGenerator.nextInt(catList.size()));
 	}
-	
-	private String cleanPath(String namePackage) {
-		namePackage = namePackage.replace(File.separator,"."); 
-		namePackage = namePackage.substring(namePackage.lastIndexOf("fr."), namePackage.length()); // filtre jusqu'a /images
-		return namePackage;
-	}
-
-
 }

@@ -13,10 +13,10 @@ public class Controller {
 	private static Category rightCategory;
 	public static boolean success;
 	
-	public Controller(){
+	public Controller(Categories categoriesList){
 		super();
 		setImagesList(new ArrayList<Picture>());
-		categoryList = new Categories();
+		this.categoryList = categoriesList;
 	}
 	
 	// Getter & Setter
@@ -26,10 +26,14 @@ public class Controller {
 	}
 
 	// does not verify if the value of level is too high
-	public void setRightCategory(int level) {
-		if (level < 0) throw new IllegalArgumentException("The level must be positive");
-		do rightCategory = categoryList.getRandomCat();
-		while (rightCategory.level != level);
+	// set rightCategory to null if the previous level was the last
+	public final void setRightCategory() {
+		if(rightCategory == null) rightCategory = categoryList.getRandomCat();
+		else{
+			ArrayList<Category> categoriesSup = rightCategory.getChildren();
+			if(categoriesSup.isEmpty() == true) rightCategory=null;
+			else rightCategory = Categories.getRandomCat(categoriesSup);
+		}
 	}
 	
 	public Categories getCategoryList() {

@@ -1,25 +1,19 @@
 package fr.upem.capcha;
 
-import fr.upem.capcha.images.Category;
-import fr.upem.capcha.images.ponts.Ponts;
-
 // test class
 public class Main {
 
 	public static void main(String[] args) throws Exception {
-		Category Ponts = new Ponts();
-		Controller test = new Controller();
-		Categories testCategories = new Categories();
+		Categories categories = new Categories();
+		Controller controller = new Controller(categories);
 		
-		test.createSelectedImageList();
+		System.out.println("Categories : \n" + categories.getCategoryList());
 		
-	    System.out.println("Categories : \n" + testCategories.getCategoryList());
-	    
-	    System.out.println("\nRight Category : \n" + test.getRightCategory().getCategory());
+		controller.setRightCategory();
 
-	    
-	    System.out.println("\nImages selectionnées : \n" + test.getImagesList());
-	    
-	    Controller.verify(Ponts.getList());
+		System.out.println("\nRight category : \n" + controller.getRightCategory());
+		
+		System.out.println("\nTheir images : \n" + controller.getRightCategory().getList());
+	
 	}
 }
