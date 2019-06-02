@@ -7,14 +7,24 @@ import java.util.Objects;
 
 import fr.upem.capcha.UrlOperations;
 
+/**
+ * Represents an images' category.
+ * 
+ * @author Hamadache Hédi
+ * @author Corradi Emilie
+ */
+
 public abstract class Category implements Images {
 	private ArrayList<Picture> picturesList = new ArrayList<Picture>();
 	private String categoryUrl;
 	private ArrayList<Category> children;
 	protected String categoryName;
 	
-	//Constructeur 
-	public Category() {
+	/**
+	 * Constructs the <code>Category</code> without any chidren or pictureList.
+	 * To define these elements, this constructor must not be called directly, but through the <code>instanceFromFolder(File folder)</code> method.
+	 */
+	protected Category() {
 		super();
 		String path = Images.class.getResource("Images.class").getPath();
 		File fileParent = new File(path);
@@ -24,15 +34,25 @@ public abstract class Category implements Images {
 		this.categoryUrl = pathParent + namePackage;
 	}
 
-	//Getter & Setter
+	/**
+	 * @return the pictures list of this <code>Category</code>.
+	 */
 	public ArrayList<Picture> getList() {
 		return picturesList;
 	}
 
+	/**
+	 * Add the <code>Picture</code> objects in the given list to the <code>Picture</code> list of this <code>Category</code>.
+	 * 
+	 * @param pictures the <code>ArrayList</code> of the pictures to be added.
+	 */
 	public void addPictures(ArrayList<Picture> pictures){
 		picturesList.addAll(pictures);
 	}
 	
+	/**
+	 * @return the <code>String<code> of the absolute path of the folder's category (where its images are).
+	 */
 	public String getCategoryUrl() {
 		return categoryUrl;
 	}
@@ -94,7 +114,7 @@ public abstract class Category implements Images {
 
 	@Override
 	public boolean isPhotoCorrect(Category category) {
-		if (getCategoryUrl().contains(category.getCategoryUrl())) {
+		if (getCategoryUrl().contains(category.getCategory())) {
 			return true;
 		}
 		else {

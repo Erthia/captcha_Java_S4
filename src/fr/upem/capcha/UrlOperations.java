@@ -27,6 +27,5 @@ final public class UrlOperations{
 		namePackage = namePackage.substring(namePackage.lastIndexOf("images" + File.separator), namePackage.length()); // filtre jusqu'a /images
 		namePackage = namePackage.replace("images" + File.separator, File.separator); // remplace images/ par /
 		return namePackage;
-	}
-
+  }
 }
