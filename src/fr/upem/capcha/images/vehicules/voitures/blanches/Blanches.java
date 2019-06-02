@@ -5,5 +5,6 @@ import fr.upem.capcha.images.vehicules.voitures.Voitures;
 public class Blanches extends Voitures {
 	public Blanches() {
 		super();
+		this.categoryName = "voitures blanches";
 	}
 }

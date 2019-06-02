@@ -5,5 +5,6 @@ import fr.upem.capcha.images.panneaux.Panneaux;
 public class Triangulaires extends Panneaux {
 	public Triangulaires() {
 		super();
+		this.categoryName = "panneaux triangulaires";
 	}
 }

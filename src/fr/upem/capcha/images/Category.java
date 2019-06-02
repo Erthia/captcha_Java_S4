@@ -11,6 +11,7 @@ public abstract class Category implements Images {
 	private ArrayList<Picture> picturesList = new ArrayList<Picture>();
 	private String categoryUrl;
 	private ArrayList<Category> children;
+	protected String categoryName;
 	
 	//Constructeur 
 	public Category() {
@@ -82,6 +83,13 @@ public abstract class Category implements Images {
 		long seed = System.currentTimeMillis();
 		Random RGenerator = new Random(seed);
 		return tmpList.get(RGenerator.nextInt(tmpList.size()));
+	}
+
+	/**
+	 * @return the beautiful category name, to be used in the displayed questions
+	 */
+	public final String getCategoryName(){
+		return this.categoryName;
 	}
 
 	@Override

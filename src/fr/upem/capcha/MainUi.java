@@ -62,7 +62,7 @@ public class MainUi {
 		for (int i = 0; i < 9; ++i)
 			frame.add(createLabelImage(toDisplay.get(i)));
 	
-		frame.add(new JTextArea("\n Veuillez sélectionner la bonne catégorie : \n" + controller.getRightCategory().getCategory()));
+		frame.add(new JTextArea("\n Veuillez sélectionner les " + controller.getRightCategory().getCategoryName() + "."));
 		
 		JButton okButton = createOkButton(controller, frame);
 		frame.add(okButton);
