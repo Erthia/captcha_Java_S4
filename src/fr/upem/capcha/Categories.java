@@ -10,6 +10,12 @@ import fr.upem.capcha.images.Images;
 import fr.upem.capcha.images.Picture;
 import java.util.Iterator;
 
+/**
+ * Class to store and access the different Category's classes (one instance by class);
+ * 
+ * @author Hamadache Hédi
+ * @author Corradi Emilie
+ */
 public class Categories {
 	private ArrayList<Category> categoryList; // only the categories which level is 0
 
@@ -51,23 +57,27 @@ public class Categories {
 		}
 		if(currentCat != null && pictures != null) currentCat.addPictures(pictures);
 		return childrenCat;
-}
+	}
 
 
-	// Getter & Setter
+	/**
+	 * @return the list of the 0-level Categories.
+	 */
 	public ArrayList<Category> getCategoryList() {
 		return categoryList;
 	}
 
-	public void setCategoryList(ArrayList<Category> categoryList) {
-		this.categoryList = categoryList;
-	}
-
-	// Methods
+	/**
+	 * @return a random Category among the 0-level Categories.
+	 */
 	public final Category getRandomCat() {
 		return getRandomCat(this.categoryList);
 	}
 
+	/**
+	 * @param catList a list of Category
+	 * @return a random Category among the given list
+	 */
 	static public final Category getRandomCat(List<Category> catList) {
 		long seed = System.currentTimeMillis();
 		Random RGenerator = new Random(seed);
