@@ -140,7 +140,7 @@ public abstract class Category implements Images {
 	 * @throws IllegalArgumentException
 	 */
 	static public Category instanceFromFolder(File folder){
-		String classPath = UrlOperations.folderToClassPath(folder);
+		String classPath = UrlOperations.folderToPackageName(folder);
 		try{
 			Class<?> classe = Class.forName(classPath);
 			return (Category) classe.newInstance();
