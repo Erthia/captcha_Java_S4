@@ -51,14 +51,14 @@ public abstract class Category implements Images {
 	}
 	
 	/**
-	 * @return the <code>String<code> of the absolute path of the folder's category (where its images are).
+	 * @return the String of the absolute path of the folder's category (where its images are).
 	 */
 	public String getCategoryUrl() {
 		return categoryUrl;
 	}
 	
 	/**
-	 * @return the <code>String<code> name of the class, in lower case.
+	 * @return the String name of the class, in lower case.
 	 */
 	public String getCategory() {
 		String category = this.getClass().getSimpleName().toLowerCase();
@@ -91,6 +91,7 @@ public abstract class Category implements Images {
 
 	/**
 	 * Set its children Categories.
+	 * @param children children
 	 */
 	public void setChildren(ArrayList<Category> children){
 		this.children = children; 
@@ -137,7 +138,7 @@ public abstract class Category implements Images {
 	/**
 	 * @param folder Assume that it is a folder
 	 * @return the Category corresponding to the given folder. returns <code>null</code> if a problem occurs when instancing the Category.
-	 * @throws IllegalArgumentException
+	 * @throws IllegalArgumentException Exception
 	 */
 	static public Category instanceFromFolder(File folder){
 		String classPath = UrlOperations.folderToPackageName(folder);

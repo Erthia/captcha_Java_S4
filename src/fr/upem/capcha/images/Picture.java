@@ -34,6 +34,7 @@ public final class Picture {
 	
 	/**
 	 * @return an object <code>Category</code> of the <code>Picture</code>.
+	 * @throws Exception Exception
 	 */
 	public Category getCategoryClass() throws Exception {
 		String classPackage = this.url.substring(this.url.lastIndexOf("fr/upem"), this.url.length()).replace("/", "."); 

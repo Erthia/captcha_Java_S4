@@ -25,7 +25,7 @@ final public class UrlOperations{
   /**
    * Transforms a name package into a relative path
    * 
-   * @param namePackage
+   * @param namePackage Name of the package
    * @return relative path of the package (relative to the 'images' folder)
    */
   static public String packageToPath(String namePackage) {

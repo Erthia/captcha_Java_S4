@@ -99,8 +99,9 @@ public class Controller {
 	 * Verify if the given ArrayList of Picture, corresponding to the selected images, is correct (all the displayed right images have been selected).
 	 * 
 	 * @param list the list to check
+	 * @param nbRightImages Number of right images
 	 * @return true if the ArrayList contains all the displayed right images
-	 * @throws Exception 
+	 * @throws Exception Exception
 	 */
 	public static boolean verify(ArrayList<Picture> list, int nbRightImages) throws Exception {
 		int count = 0;

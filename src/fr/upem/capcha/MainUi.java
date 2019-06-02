@@ -39,8 +39,8 @@ public class MainUi {
 	/**
 	 * Method to call to begin the software.
 	 * 
-	 * @param args
-	 * @throws IOException
+	 * @param args args
+	 * @throws IOException Exception
 	 */
 	public static void main(String[] args) throws IOException {
 		JFrame frame = new JFrame("Capcha"); // Création de la fenêtre principale
