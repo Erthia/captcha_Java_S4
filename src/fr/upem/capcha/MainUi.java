@@ -27,8 +27,9 @@ import fr.upem.capcha.images.Picture;
 
 
 public class MainUi {
-	
+	private static boolean success;
 	private static ArrayList<Picture> selectedImages = new ArrayList<Picture>();
+	private static int nbRightImages = 4;
 	
 	public static void main(String[] args) throws IOException {
 		JFrame frame = new JFrame("Capcha"); // Création de la fenêtre principale
@@ -46,6 +47,10 @@ public class MainUi {
 		Controller controller = new Controller(categories);
 		controller.setRightCategory();
 		setFrame(controller, frame);
+	}
+
+	public static void check(ArrayList<Picture> list) throws Exception {
+		MainUi.success = Controller.verify(list, nbRightImages);
 	}
 	
 	private static void setFrame(Controller controller, JFrame frame) throws IOException{
@@ -69,9 +74,6 @@ public class MainUi {
 	private static JButton createOkButton(Controller controller, JFrame frame){
 		return new JButton(new AbstractAction("Vérifier") { //ajouter l'action du bouton
 			
-			/**
-			 * 
-			 */
 			private static final long serialVersionUID = 1L;
 
 			@Override
@@ -81,9 +83,9 @@ public class MainUi {
 					@Override
 					public void run() { 
 						try {
-							Controller.check(selectedImages);
+							MainUi.check(selectedImages);
 							selectedImages.clear();
-							if (Controller.isSuccess() == false) { 
+							if (MainUi.success == false) { 
 								JOptionPane.showMessageDialog(frame,
 									    "Vous vous êtes trompés",
 									    "Résultat",
