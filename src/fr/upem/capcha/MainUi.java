@@ -25,16 +25,27 @@ import javax.swing.JTextArea;
 import fr.upem.capcha.Controller;
 import fr.upem.capcha.images.Picture;
 
-
+/**
+ * User interface, main class.
+ * 
+ * @author Corradi Emilie
+ * @author Hamadache Hédi
+ */
 public class MainUi {
 	private static boolean success;
 	private static ArrayList<Picture> selectedImages = new ArrayList<Picture>();
 	private static int nbRightImages = 4;
 	
+	/**
+	 * Method to call to begin the software.
+	 * 
+	 * @param args
+	 * @throws IOException
+	 */
 	public static void main(String[] args) throws IOException {
 		JFrame frame = new JFrame("Capcha"); // Création de la fenêtre principale
 		
-		GridLayout layout = createLayout();  // Création d'un layout de type Grille avec 4 lignes et 3 colonnes
+		GridLayout layout = new GridLayout(4,3);;  // Création d'un layout de type Grille avec 4 lignes et 3 colonnes
 		
 		frame.setLayout(layout);  // affection du layout dans la fenêtre.
 		frame.setSize(1024, 768); // définition de la taille
@@ -49,10 +60,23 @@ public class MainUi {
 		setFrame(controller, frame);
 	}
 
-	public static void check(ArrayList<Picture> list) throws Exception {
+	/**
+	 * Put the internal state <code>success</code> into true if the given list contains all the diplayed right images, false otherwise.
+	 * 
+	 * @param list the list of Pictures to be checked.
+	 * @throws Exception
+	 */
+	private static void check(ArrayList<Picture> list) throws Exception {
 		MainUi.success = Controller.verify(list, nbRightImages);
 	}
 	
+	/**
+	 * Constructs and displays the frame.
+	 * 
+	 * @param controller the controller to be used
+	 * @param frame the JFrame, assumed to have a layout of 4 lines and 3 colomns
+	 * @throws IOException
+	 */
 	private static void setFrame(Controller controller, JFrame frame) throws IOException{
 		ArrayList<Picture> toDisplay = controller.createSelectedImageList();
 		if (toDisplay.size() != 9) throw new IllegalArgumentException("The list of pictures to display has not 9 Pictures");
@@ -67,10 +91,13 @@ public class MainUi {
 		frame.setVisible(true);
 	}
 	
-	private static GridLayout createLayout(){
-		return new GridLayout(4,3);
-	}
-	
+	/**
+	 * Create the validation button, and its actions
+	 * 
+	 * @param controller the controller to be manipulated by the button's actions
+	 * @param frame the frame to be manipulated by the button's actions
+	 * @return the validation button
+	 */
 	private static JButton createOkButton(Controller controller, JFrame frame){
 		return new JButton(new AbstractAction("Vérifier") { //ajouter l'action du bouton
 			
@@ -120,10 +147,16 @@ public class MainUi {
 		});
 	}
 	
+	/**
+	 * Create the JLabel containing an image, and its actions while clicking on it.
+	 * 
+	 * @param image the Picture to display
+	 * @return the JLabel created
+	 * @throws IOException
+	 */
 	private static JLabel createLabelImage(Picture image) throws IOException{
 		final URL url = MainUi.class.getResource(image.getUrl().substring("fr/upem/capcha/".length())); //Aller chercher les images !! IMPORTANT 
 		
-		System.out.println(" URL récupérée : " + url); 
 		BufferedImage img = ImageIO.read(url); //lire l'image
 		Image sImage = img.getScaledInstance(1024/3,768/4, Image.SCALE_SMOOTH); //redimentionner l'image
 		

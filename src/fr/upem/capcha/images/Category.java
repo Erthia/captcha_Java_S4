@@ -146,16 +146,13 @@ public abstract class Category implements Images {
 			return (Category) classe.newInstance();
 		}
 			catch (ClassNotFoundException e){
-				System.out.println("La classe n'existe pas");
-				throw new IllegalArgumentException();
+				throw new IllegalArgumentException("La classe n'existe pas");
 			}
 			catch (InstantiationException e){
-				System.out.println(" La classe est abstract ou est une interface ou n'a pas de constructeur accessible sans paramètre");
-				throw new IllegalArgumentException();
+				throw new IllegalArgumentException(" La classe est abstract ou est une interface ou n'a pas de constructeur accessible sans paramètre");
 			}
 			catch (IllegalAccessException e){
-				System.out.println("La classe n'est pas accessible");
-				throw new IllegalArgumentException();
+				throw new IllegalArgumentException("La classe n'est pas accessible");
 			}
 	}
 
