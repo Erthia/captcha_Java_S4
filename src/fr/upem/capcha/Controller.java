@@ -46,7 +46,7 @@ public class Controller {
 
 	private Category getWrongCat(){
 		Category wrongCat = categoryList.getRandomCat();
-		while(wrongCat.isPhotoCorrect(rightCategory)) {
+		while(wrongCat.isPhotoCorrect(rightCategory) || rightCategory.getCategoryUrl().contains(wrongCat.getCategoryUrl())) {
 			wrongCat = categoryList.getRandomCat();
 		}
 		return wrongCat;
@@ -72,11 +72,13 @@ public class Controller {
 		ArrayList<Picture> wrong = new ArrayList<Picture>(5);
 
 		imagesList.clear();
+		
 		right = rightCategory.getRandomPhotos(nbRightImages);
 		imagesList.addAll(right);
 
 		for(int cpt=0; cpt<nbWrongImages; cpt ++){
 			Category wrongCat = getWrongCat();
+			System.out.println("Wrong Category --------- :\n" + wrongCat);
 			Picture randomPhoto;
 			do {randomPhoto = wrongCat.getRandomPhoto();}
 			while(wrong.contains(randomPhoto));

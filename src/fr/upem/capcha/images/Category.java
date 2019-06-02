@@ -149,6 +149,4 @@ public abstract class Category implements Images {
 		namePackage = namePackage.substring(namePackage.lastIndexOf("fr."), namePackage.length()); // filtre jusqu'a /images
 		return namePackage;
 	}
-
-	
 }
