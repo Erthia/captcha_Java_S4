@@ -1,13 +1,14 @@
 package fr.upem.capcha.images;
 
+import java.util.Objects;
 
-public class Picture {
+
+public final class Picture {
 	final private String url;
 	final private String category;
 	
 	//Constructeur
 	public Picture(String url, String category) {
-		super();
 		this.url = url;
 		this.category = category;
 	}
@@ -32,6 +33,18 @@ public class Picture {
 	@Override
 	public String toString() {
 		return "Image : url=" + url + ", category=" + category + "\n";
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if(!(obj instanceof Picture)) return false;
+		Picture picture = (Picture) obj;
+		return this.url.equals(picture.url) && this.category.equals(picture.category);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(this.url, this.category);
 	}
 	
 }

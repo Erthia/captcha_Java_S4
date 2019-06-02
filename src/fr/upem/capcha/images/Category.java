@@ -43,7 +43,7 @@ public abstract class Category implements Images {
 	}
 
 	public ArrayList<Category> getChildren(){
-		return (ArrayList<Category>) children.clone();
+		return this.children;
 	}
 
 	public void setChildren(ArrayList<Category> children){
@@ -94,7 +94,7 @@ public abstract class Category implements Images {
 
 	@Override
 	public boolean isPhotoCorrect(Category category) {
-		if (getCategoryUrl().contains(category.getCategory())) {
+		if (getCategoryUrl().contains(category.getCategoryUrl())) {
 			return true;
 		}
 		else {

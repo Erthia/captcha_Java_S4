@@ -44,9 +44,9 @@ public class Controller {
 		return imagesList;
 	}
 
-	private Category getWrongPhotos(){
+	private Category getWrongCat(){
 		Category wrongCat = categoryList.getRandomCat();
-		while(wrongCat.getCategoryUrl().contains(Controller.rightCategory.getCategoryUrl())) {
+		while(wrongCat.isPhotoCorrect(rightCategory)) {
 			wrongCat = categoryList.getRandomCat();
 		}
 		return wrongCat;
@@ -66,12 +66,29 @@ public class Controller {
 	
 	// Methods
 	public ArrayList<Picture> createSelectedImageList(){
-		ArrayList<Picture> right; 
+		int nbRightImages = 4;
+		int nbWrongImages = 5;
+		ArrayList<Picture> right = new ArrayList<Picture>(4);
+		ArrayList<Picture> wrong = new ArrayList<Picture>(5);
+
 		imagesList.clear();
-		right = rightCategory.getRandomPhotos(4);  
-		imagesList.addAll(right);  
-		imagesList.addAll(getWrongPhotos().getRandomPhotos(5));
-		Collections.shuffle(imagesList); 
+		right = rightCategory.getRandomPhotos(nbRightImages);
+		imagesList.addAll(right);
+
+		for(int cpt=0; cpt<nbWrongImages; cpt ++){
+			Category wrongCat = getWrongCat();
+			Picture randomPhoto;
+			do {randomPhoto = wrongCat.getRandomPhoto();}
+			while(wrong.contains(randomPhoto));
+			wrong.add(randomPhoto);
+		}
+		imagesList.addAll(wrong);
+		Collections.shuffle(imagesList);
+
+		//debug
+		System.out.println("Wrong pictures :\n" + wrong);
+		System.out.println("Right pictures :\n" + right);
+		//end debug
 		return imagesList;
 	}
 	

@@ -1,45 +1,44 @@
 package fr.upem.capcha.images;
 
-import fr.upem.capcha.images.panneaux.ronds.Ronds;
-import fr.upem.capcha.images.vehicules.voitures.Voitures;
-import fr.upem.capcha.images.vehicules.voitures.rouges.Rouges;
+import fr.upem.capcha.Categories;
+
+import java.util.ArrayList;
 
 public class Main {
 	public static void main(String[] args) {
-		// Test Voitures
-	    System.out.println("------- VOITURES ------");
-		Category testVoiture = new Voitures();
+		Categories categories = new Categories();
+		Category firstCat = categories.getRandomCat();
+		// Test getRandomPhotos
+	    System.out.println("------- PREMIERE CAT ------");
 
-	    System.out.println("CategorieUrl : " + testVoiture.getCategoryUrl());
-	    System.out.println("Categorie : " + testVoiture.getCategory());   
-	    System.out.println("Photos : \n" + testVoiture.getPhotos());
+		System.out.println("Photos : \n" + firstCat.getPhotos());
+		System.out.println("Random photos (6) : \n" + firstCat.getRandomPhotos(6));
 	    
-	    System.out.println("\n ------ VOITURES ROUGES ------");
+		System.out.println("\n ------ DEUXIEME CAT ------");
+		Category secondCat;
+		ArrayList<Category> categoriesSup = firstCat.getChildren();
+		if(categoriesSup.isEmpty() == true){
+			System.out.println("No more images");
+			secondCat=null;
+		}
+		else{
+			secondCat = Categories.getRandomCat(categoriesSup);
+			System.out.println("Photos : \n" + secondCat.getPhotos());
+			System.out.println("Random photos(5) : \n" + secondCat.getRandomPhotos(5));
 
-		// Test Voitures rouge
-		Category testVoitureRouge = new Rouges();
-
-	    System.out.println("CategorieUrl : " + testVoitureRouge.getCategoryUrl());
-	    System.out.println("Categorie : " + testVoitureRouge.getCategory());   
-	    System.out.println("Photos : \n" + testVoitureRouge.getPhotos());
-		System.out.println("Random photos : \n" + testVoitureRouge.getRandomPhotos(2));
-
-		// Test panneaux ronds
-
-		System.out.println("\n ------ PANNEAUX RONDS ------");
-		Category testPanneauxRonds = new Ronds();
-
-	    System.out.println("CategorieUrl : " + testPanneauxRonds.getCategoryUrl());
-	    System.out.println("Categorie : " + testPanneauxRonds.getCategory());   
-	    System.out.println("Photos : \n" + testPanneauxRonds.getPhotos());
-		System.out.println("Random photos : \n" + testPanneauxRonds.getRandomPhotos(2));
-	    
-		// Test photos	  
-	    System.out.println("\n ------ TEST ------");
-
-		System.out.println("Categorie enfant : \n" + testVoitureRouge.getCategory());	  
-		System.out.println("Categorie parent : \n" + testVoiture.getCategory());	    
-		System.out.println("Voiture rouge appartient à Voiture ? : " + testVoitureRouge.isPhotoCorrect(testVoiture));	    
+			System.out.println("\n ------ TROISIEME CAT ------");
+			Category thirdCat;
+			categoriesSup = secondCat.getChildren();
+			if(categoriesSup.isEmpty() == true){
+				System.out.println("No more images");
+				thirdCat=null;
+			}
+			else{
+				thirdCat = Categories.getRandomCat(categoriesSup);
+				System.out.println("Photos : \n" + thirdCat.getPhotos());
+				System.out.println("Random photos(4) : \n" + thirdCat.getRandomPhotos(4));
+			}
+		}
 	}
 }
 
