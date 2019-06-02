@@ -7,26 +7,43 @@ import java.util.Collections;
 import fr.upem.capcha.images.Category;
 import fr.upem.capcha.images.Picture;
 
+/**
+ * Stores and manipulates the pictures to display.
+ * 
+ * @author Corradi Emilie
+ * @author Hamadache Hédi
+ */
 public class Controller {
 	private ArrayList<Picture> imagesList;
 	private final Categories categoryList;
 	private static Category rightCategory;
 	public static boolean success;
 	
+	/**
+	 * Constructor
+	 * @param categoriesList The <code>Categories</code> object storing the different Categories.
+	 */
 	public Controller(Categories categoriesList){
 		super();
 		setImagesList(new ArrayList<Picture>());
 		this.categoryList = categoriesList;
 	}
 	
-	// Getter & Setter
-	
+	/**
+	 * @return the Category the user has to select.
+	 */
 	public Category getRightCategory() {
 		return rightCategory;
 	}
 
-	// does not verify if the value of level is too high
 	// set rightCategory to null if the previous level was the last
+	/**
+	 * Choose the right Category (random),
+	 * among the 0-level if there was not right Category previously,
+	 * or among the children of the previous right Category (level +1)
+	 * <p>
+	 * Set the rightCategory to null if the previous has no children (no difficulty higher).
+	 */
 	public final void setRightCategory() {
 		if(rightCategory == null) rightCategory = categoryList.getRandomCat();
 		else{
@@ -35,19 +52,15 @@ public class Controller {
 			else rightCategory = Categories.getRandomCat(categoriesSup);
 		}
 	}
-	
-	public Categories getCategoryList() {
-		return categoryList;
-	}
-	
-	public ArrayList<Picture> getImagesList() {
-		return imagesList;
-	}
 
+	// 
 	private Category getWrongCat(){
 		Category wrongCat = categoryList.getRandomCat();
 		while(wrongCat.isPhotoCorrect(rightCategory) || rightCategory.isPhotoCorrect(wrongCat)) {
 			wrongCat = categoryList.getRandomCat();
+			while(!wrongCat.getChildren().isEmpty()){
+				wrongCat = Categories.getRandomCat(wrongCat.getChildren());
+			}
 		}
 		return wrongCat;
 	}
