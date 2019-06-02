@@ -46,7 +46,7 @@ public class Controller {
 
 	private Category getWrongCat(){
 		Category wrongCat = categoryList.getRandomCat();
-		while(wrongCat.isPhotoCorrect(rightCategory) || rightCategory.getCategoryUrl().contains(wrongCat.getCategoryUrl())) {
+		while(wrongCat.isPhotoCorrect(rightCategory) || rightCategory.isPhotoCorrect(wrongCat)) {
 			wrongCat = categoryList.getRandomCat();
 		}
 		return wrongCat;

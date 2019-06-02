@@ -21,11 +21,20 @@ final public class UrlOperations{
     return result;
   }
 
-  static public String cleanPath(String namePackage) {
+  static public String packageToPath(String namePackage) {
 		Objects.requireNonNull(namePackage, "Le nom du package ne doit pas être nul");
 		namePackage = namePackage.replace(".", File.separator); 
 		namePackage = namePackage.substring(namePackage.lastIndexOf("images" + File.separator), namePackage.length()); // filtre jusqu'a /images
 		namePackage = namePackage.replace("images" + File.separator, File.separator); // remplace images/ par /
 		return namePackage;
+  }
+
+  static public String folderToClassPath(File folder){
+    String str = folder.getName();
+		String className = str.substring(0, 1).toUpperCase() + str.substring(1);
+		String path = folder.getPath(); 
+		path = path.replace(File.separator, ".");
+		path = path.substring(path.lastIndexOf("fr."), path.length()); // filtre jusqu'a /images
+		return path + "." + className;
   }
 }

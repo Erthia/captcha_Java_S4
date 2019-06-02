@@ -30,7 +30,7 @@ public abstract class Category implements Images {
 		File fileParent = new File(path);
 		String pathParent = fileParent.getParent(); 
 		String namePackage = this.getClass().getPackageName(); 
-		namePackage = UrlOperations.cleanPath(namePackage);
+		namePackage = UrlOperations.packageToPath(namePackage);
 		this.categoryUrl = pathParent + namePackage;
 	}
 
@@ -57,20 +57,45 @@ public abstract class Category implements Images {
 		return categoryUrl;
 	}
 	
+	/**
+	 * @return the <code>String<code> name of the class, in lower case.
+	 */
 	public String getCategory() {
 		String category = this.getClass().getSimpleName().toLowerCase();
 		return category;
 	}
 
+	/**
+	 * @return the <code>ArrayList</code> of its children Categories.
+	 */
 	public ArrayList<Category> getChildren(){
 		return this.children;
 	}
 
+	/**
+	 * @param tmpList the list in which we take the random Pictures.
+	 * @return a list of random Pictures choosen into the given ArrayList.
+	 */
+	public Picture getRandomPhoto(ArrayList<Picture> tmpList) {
+		long seed = System.currentTimeMillis();
+		Random RGenerator = new Random(seed);
+		return tmpList.get(RGenerator.nextInt(tmpList.size()));
+	}
+	
+	/**
+	 * @return the beautiful category name, to be used in the displayed questions
+	 */
+	public final String getCategoryName(){
+		return this.categoryName;
+	}
+
+	/**
+	 * Set its children Categories.
+	 */
 	public void setChildren(ArrayList<Category> children){
 		this.children = children; 
 	}
 
-	//Interface's Method
 	@Override
 	public ArrayList<Picture> getPhotos() {
 		return picturesList;
@@ -98,19 +123,6 @@ public abstract class Category implements Images {
 		Random RGenerator = new Random(seed);
 		return picturesList.get(RGenerator.nextInt(this.picturesList.size()));
 	}
-	
-	public Picture getRandomPhoto(ArrayList<Picture> tmpList) {
-		long seed = System.currentTimeMillis();
-		Random RGenerator = new Random(seed);
-		return tmpList.get(RGenerator.nextInt(tmpList.size()));
-	}
-
-	/**
-	 * @return the beautiful category name, to be used in the displayed questions
-	 */
-	public final String getCategoryName(){
-		return this.categoryName;
-	}
 
 	@Override
 	public boolean isPhotoCorrect(Category category) {
@@ -122,14 +134,13 @@ public abstract class Category implements Images {
 		}
 	}
 
-	// does not verify is the file is a folder
-	// return null if problems when instancing the Category.
+	/**
+	 * @param folder Assume that it is a folder
+	 * @return the Category corresponding to the given folder. returns <code>null</code> if a problem occurs when instancing the Category.
+	 * @throws IllegalArgumentException
+	 */
 	static public Category instanceFromFolder(File folder){
-		String str = folder.getName();
-		String className = str.substring(0, 1).toUpperCase() + str.substring(1);
-		String path = folder.getPath(); 
-		path = cleanPath(path);
-		String classPath = path + "." + className;
+		String classPath = UrlOperations.folderToClassPath(folder);
 		try{
 			Class<?> classe = Class.forName(classPath);
 			return (Category) classe.newInstance();
@@ -162,11 +173,5 @@ public abstract class Category implements Images {
 	@Override
 	public int hashCode() {
 		return Objects.hash(picturesList, categoryUrl, children);
-	}
-
-	private static String cleanPath(String namePackage) {
-		namePackage = namePackage.replace(File.separator, ".");
-		namePackage = namePackage.substring(namePackage.lastIndexOf("fr."), namePackage.length()); // filtre jusqu'a /images
-		return namePackage;
 	}
 }
