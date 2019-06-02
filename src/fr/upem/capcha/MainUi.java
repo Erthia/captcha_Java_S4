@@ -42,21 +42,13 @@ public class MainUi {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Lorsque l'on ferme la fenêtre on quitte le programme.
 		 
 
-		//Test link between UI and controller
 		Categories categories = new Categories();
 		Controller controller = new Controller(categories);
+		controller.setRightCategory();
 		setFrame(controller, frame);
 	}
 	
 	private static void setFrame(Controller controller, JFrame frame) throws IOException{
-		controller.setRightCategory();
-		if(controller.getRightCategory() == null){
-			JOptionPane.showMessageDialog(frame, 
-					"Vous êtes un robot",
-					"Résultat",
-					JOptionPane.PLAIN_MESSAGE);
-				frame.dispose();
-		}
 		ArrayList<Picture> toDisplay = controller.createSelectedImageList();
 		if (toDisplay.size() != 9) throw new IllegalArgumentException("The list of pictures to display has not 9 Pictures");
 		for (int i = 0; i < 9; ++i)
@@ -96,8 +88,17 @@ public class MainUi {
 									    "Vous vous êtes trompés",
 									    "Résultat",
 										JOptionPane.PLAIN_MESSAGE);
-								frame.getContentPane().removeAll();
-								setFrame(controller, frame);
+								controller.setRightCategory();
+								if(controller.getRightCategory() == null){
+									JOptionPane.showMessageDialog(frame, 
+											"Vous êtes un robot",
+											"Résultat",
+											JOptionPane.PLAIN_MESSAGE);
+										frame.dispose();
+								} else{
+									frame.getContentPane().removeAll();
+									setFrame(controller, frame);
+								}
 							}
 							else {
 								 int input = JOptionPane.showConfirmDialog(frame, 
